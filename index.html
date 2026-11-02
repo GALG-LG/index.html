@@ -1485,3 +1485,406 @@ highlight();
 </script>
 </body>
 </html>
+(function corregirMapaDeCoagulacion() {
+
+  const estilos = document.createElement("style");
+
+  estilos.textContent = `
+    #diagram {
+      width:100%;
+      max-width:100%;
+      overflow:hidden;
+    }
+    .cf-map {
+      display:flex;
+      flex-direction:column;
+      gap:13px;
+      width:100%;
+      min-width:0;
+    }
+    .cf-section {
+      min-width:0;
+      padding:13px;
+      border:1px solid #426180;
+      border-left:4px solid var(--cf-accent,#7cbef0);
+      border-radius:13px;
+      background:#172d48;
+    }
+    .cf-section h3 {
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      color:#b1e4ff;
+      margin:0 0 11px;
+    }
+    .cf-section p {
+      margin:8px 0 0;
+      color:#b9d0e6;
+      font-size:11px;
+    }
+    .cf-path {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-width:0;
+    }
+    .cf-node {
+      display:block;
+      width:min(100%,240px);
+      min-height:39px;
+      border:1px solid #5880a5;
+      background:#244462;
+      color:white;
+      font-size:12px;
+      font-weight:700;
+      text-align:center;
+      padding:8px 5px;
+      border-radius:9px;
+      cursor:pointer;
+      overflow-wrap:anywhere;
+    }
+    .cf-node:focus-visible {
+      outline:3px solid white;
+      outline-offset:2px;
+    }
+    .cf-node.hit {
+      background:#ffd17e;
+      border-color:#fff5cb;
+      color:#182334;
+      box-shadow:0 0 0 2px #ffd17e66;
+    }
+    .cf-arrow {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:25px;
+      flex:0 0 25px;
+    }
+    .cf-arrow:before {
+      content:'';
+      width:2px;
+      height:14px;
+      background:#85c8e7;
+    }
+    .cf-arrow:after {
+      content:'';
+      width:0;
+      height:0;
+      border-left:5px solid transparent;
+      border-right:5px solid transparent;
+      border-top:7px solid #85c8e7;
+    }
+    .cf-branch {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:7px;
+      width:100%;
+      align-items:stretch;
+    }
+    .cf-branch .cf-node {
+      width:100%;
+      font-size:11px;
+    }
+    .cf-two-paths {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:9px;
+      align-items:stretch;
+    }
+    .cf-two-paths .cf-section {
+      padding:9px 7px;
+    }
+    .cf-two-paths .cf-section h3 {
+      font-size:10px;
+      text-align:center;
+    }
+    .cf-two-paths .cf-node {
+      width:100%;
+      font-size:11px;
+    }
+    .cf-join {
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      padding:8px 2px 3px;
+      color:#a5dfff;
+      font-weight:700;
+      text-align:center;
+      font-size:12px;
+    }
+    .cf-join .cf-diagonal {
+      font-size:26px;
+      line-height:1;
+    }
+    .cf-join span {
+      min-width:0;
+    }
+    .cf-tip {
+      color:#bfd3e8;
+      font-size:11px;
+      margin-top:8px;
+      text-align:center;
+    }
+    @media(max-width:400px) {
+      .cf-section {padding:10px}
+      .cf-two-paths .cf-section {padding:8px 5px}
+      .cf-two-paths .cf-node,
+      .cf-branch .cf-node {
+        font-size:10px;
+        padding:7px 3px;
+      }
+      .cf-two-paths {gap:7px}
+      .cf-join {font-size:10px}
+    }
+  `;
+
+  document.head.appendChild(estilos);
+
+  const boton = (id, texto) =>
+    `<button type="button" class="cf-node"
+      data-target="${id}"
+      aria-label="${texto}">${texto}</button>`;
+
+  const flecha =
+    '<div class="cf-arrow" aria-hidden="true"></div>';
+
+  const secuencia = (elementos) =>
+    elementos.map((x, i) =>
+      (i ? flecha : "") + boton(x[0], x[1])
+    ).join("");
+
+  // Sustituye solamente la representación del mapa.
+
+  renderMap = function() {
+
+    const mapa = document.getElementById("diagram");
+    if (!mapa) return;
+
+    mapa.innerHTML = `
+      <div class="cf-map">
+
+        <section class="cf-section"
+          style="--cf-accent:#bd99ff">
+
+          <h3>1 · Hemostasia primaria</h3>
+
+          <div class="cf-path">
+
+            <div class="cf-tip">
+              Lesión vascular · exposición
+              de colágeno y vWF
+            </div>
+
+            ${flecha}
+            ${boton("VWF","Adhesión plaquetaria · vWF")}
+            ${flecha}
+
+            <div class="cf-branch">
+              ${boton("COX1","COX-1 → TXA₂")}
+              ${boton("P2Y12","ADP → P2Y12")}
+            </div>
+
+            ${flecha}
+
+            ${boton("PLAQ",
+              "Activación y agregación de plaquetas")}
+
+            <div class="cf-tip">
+              Formación del tapón plaquetario
+            </div>
+
+          </div>
+        </section>
+
+        <div class="cf-two-paths">
+
+          <section class="cf-section"
+            style="--cf-accent:#54baf5">
+
+            <h3>2 · Vía intrínseca</h3>
+
+            <div class="cf-path">
+
+              ${secuencia([
+                ["XII","XII → XIIa"],
+                ["XI","XI → XIa"]
+              ])}
+
+              ${flecha}
+
+              <div class="cf-branch">
+                ${boton("IX","IXa")}
+                ${boton("VIII","VIIIa")}
+              </div>
+
+              <p>Complejo tenasa</p>
+
+            </div>
+          </section>
+
+          <section class="cf-section"
+            style="--cf-accent:#f3bd72">
+
+            <h3>3 · Vía extrínseca</h3>
+
+            <div class="cf-path">
+
+              ${boton("TF","Factor tisular")}
+              ${flecha}
+              ${boton("VII","Factor VIIa")}
+
+              <p>Complejo TF–VIIa</p>
+
+            </div>
+          </section>
+
+        </div>
+
+        <div class="cf-join">
+          <span class="cf-diagonal">↘</span>
+          <span>
+            Ambas vías activan el factor X
+          </span>
+          <span class="cf-diagonal">↙</span>
+        </div>
+
+        <section class="cf-section"
+          style="--cf-accent:#55e0b7">
+
+          <h3>4 · Vía común</h3>
+
+          <div class="cf-path">
+
+            ${secuencia([
+              ["X","Factor X"],
+              ["Xa","Factor Xa"],
+              ["II","Protrombina (II)"],
+              ["IIa","Trombina (IIa)"],
+              ["FG","Fibrinógeno"],
+              ["FIBRINA","Fibrina · coágulo"]
+            ])}
+
+            <div class="cf-tip">
+              El factor XIIIa estabiliza
+              la red de fibrina.
+            </div>
+
+          </div>
+        </section>
+
+        <section class="cf-section"
+          style="--cf-accent:#ff9382">
+
+          <h3>5 · Fibrinólisis</h3>
+
+          <div class="cf-path">
+
+            ${secuencia([
+              ["PLG","Plasminógeno"],
+              ["PLASMINA","Plasmina"]
+            ])}
+
+            ${flecha}
+
+            ${boton("FIBRINA",
+              "Degradación de la fibrina")}
+
+          </div>
+
+          <p>
+            Alteplasa, tenecteplasa y
+            estreptoquinasa favorecen la
+            activación del plasminógeno.
+            El ácido tranexámico
+            dificulta la fibrinólisis.
+          </p>
+
+        </section>
+
+        <section class="cf-section"
+          style="--cf-accent:#9ba8c6">
+
+          <h3>
+            Acciones relacionadas fuera
+            de la cascada
+          </h3>
+
+          <div class="cf-branch">
+
+            ${boton("VKORC1",
+              "Vitamina K / VKORC1")}
+
+            ${boton("VASC",
+              "Flujo esplácnico")}
+
+            ${boton("MUCOSA",
+              "Protección de mucosa")}
+
+            ${boton("LOCAL",
+              "Hemostasia tópica")}
+
+          </div>
+
+        </section>
+
+      </div>
+    `;
+
+    mapa.querySelectorAll("[data-target]")
+      .forEach(b => {
+
+      b.addEventListener("click", () => {
+
+        const id = b.dataset.target;
+        const info =
+          document.getElementById("factorinfo");
+
+        if (!info) return;
+
+        const relacionados = meds
+          .filter(m => m.t.includes(id))
+          .map(m => m.n);
+
+        info.textContent =
+          b.textContent + "\n\n" +
+          (FACTORS[id] ||
+            "Elemento relacionado con la hemostasia.") +
+          "\n\nFármacos relacionados: " +
+          (relacionados.length
+            ? relacionados.join(", ")
+            : "Ninguno de los incluidos.");
+
+      });
+
+    });
+  };
+
+  // Mantiene la diana resaltada
+  // al seleccionar otro medicamento.
+
+  highlight = function() {
+
+    const medicamento =
+      selected === null ? null : meds[selected];
+
+    document.querySelectorAll(
+      "#diagram [data-target]"
+    ).forEach(b => {
+
+      b.classList.toggle(
+        "hit",
+        !!medicamento &&
+        medicamento.t.includes(
+          b.dataset.target
+        )
+      );
+
+    });
+  };
+
+  // Activar el nuevo mapa.
+  renderMap();
+  highlight();
+
+})();

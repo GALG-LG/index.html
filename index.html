@@ -1959,6 +1959,607 @@ highlight();
   highlight();
 
 })();
+
+/* MAPA HORIZONTAL AMPLIADO
+   Mantiene intactas las fichas y demás secciones.
+*/
+(function instalarMapaHorizontal() {
+
+  const mapaAnterior = renderMap;
+  let modoMovil = window.innerWidth <= 800;
+
+  const estilos = document.createElement("style");
+
+  estilos.textContent = `
+    main {
+      width: min(1720px, 98%);
+      max-width: none;
+    }
+    .workspace {
+      grid-template-columns:
+        minmax(0, 1.72fr) minmax(350px, 1fr);
+      gap: 20px;
+    }
+    #mapa > .panel:first-child {
+      min-width: 0;
+    }
+    #diagram {
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+    #diagram .atlas-map {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      margin: 0;
+    }
+    #diagram .atlas-map .lane {
+      fill: #142a45;
+      stroke: #385775;
+      stroke-width: 1.2;
+      background: none;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+    #diagram .atlas-map .lane-primaria {
+      fill: #17334d;
+    }
+    #diagram .atlas-map .lane-fibrinolisis {
+      fill: #22304b;
+    }
+    #diagram .atlas-map .lane-label {
+      fill: #89cfff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    #diagram .atlas-map .arrow {
+      fill: none;
+      stroke: #7a9ab4;
+      stroke-width: 3;
+      stroke-linecap: round;
+      marker-end: url(#atlas-arrow);
+    }
+    #diagram .atlas-map .factor {
+      cursor: pointer;
+      outline: none;
+    }
+    #diagram .atlas-map .factor rect {
+      fill: #233e5a;
+      stroke: #53718d;
+      stroke-width: 1.7;
+    }
+    #diagram .atlas-map .factor text {
+      fill: #f0f7ff;
+      font-size: 15px;
+      font-weight: 700;
+      pointer-events: none;
+    }
+    #diagram .atlas-map .factor:hover rect {
+      fill: #315778;
+      stroke: #a3d9fa;
+    }
+    #diagram .atlas-map .factor.hit rect {
+      fill: #ffcb74;
+      stroke: #ffeab4;
+      stroke-width: 3;
+      filter: drop-shadow(0 0 8px #ffd17f99);
+    }
+    #diagram .atlas-map .factor.hit text {
+      fill: #182537;
+    }
+    #diagram .atlas-map .factor:focus-visible rect {
+      stroke: white;
+      stroke-width: 4;
+    }
+    #diagram .atlas-legend {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      color: #b9d7ef;
+      font-size: 12px;
+      margin: 5px 1px 12px;
+    }
+    #diagram .atlas-dot {
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background: #ffcb74;
+      box-shadow: 0 0 0 4px #ffd27d33;
+    }
+    #diagram .atlas-extras {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed #46607a;
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    #diagram .atlas-extras button {
+      font-size: 11px;
+      padding: 7px 9px;
+    }
+    #diagram .atlas-extras button.hit {
+      background: #ffcb74;
+      border-color: #ffeab4;
+      color: #14243a;
+    }
+    @media(max-width: 1399px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+      main {
+        width: min(1100px, 98%);
+      }
+    }
+    @media(max-width: 800px) {
+      main {
+        width: 100%;
+      }
+      #diagram .atlas-legend {
+        display: none;
+      }
+    }
+  `;
+
+  document.head.appendChild(estilos);
+
+  const mapaSVG = `
+  <svg id="atlasSvg"
+       class="atlas-map"
+       viewBox="0 0 1200 780"
+       xmlns="http://www.w3.org/2000/svg"
+       role="img"
+       aria-label="Mapa de hemostasia">
+
+    <defs>
+      <marker id="atlas-arrow"
+              markerWidth="9"
+              markerHeight="9"
+              refX="8"
+              refY="3.5"
+              orient="auto">
+        <path d="M0 0 L8 3.5 L0 7"
+              fill="none"
+              stroke="#7096b5"
+              stroke-width="1.8"/>
+      </marker>
+    </defs>
+
+    <!-- ÁREAS DEL DIAGRAMA -->
+
+    <rect class="lane lane-primaria"
+          x="20" y="45"
+          width="420" height="245" rx="20"/>
+    <text class="lane-label" x="38" y="73">
+      HEMOSTASIA PRIMARIA
+    </text>
+
+    <rect class="lane lane-fibrinolisis"
+          x="715" y="45"
+          width="465" height="245" rx="20"/>
+    <text class="lane-label" x="733" y="73">
+      FIBRINÓLISIS
+    </text>
+
+    <rect class="lane"
+          x="20" y="300"
+          width="430" height="325" rx="20"/>
+    <text class="lane-label" x="38" y="328">
+      VÍA INTRÍNSECA
+    </text>
+
+    <rect class="lane"
+          x="455" y="300"
+          width="235" height="325" rx="20"/>
+    <text class="lane-label" x="473" y="328">
+      VÍA EXTRÍNSECA
+    </text>
+
+    <rect class="lane"
+          x="710" y="300"
+          width="470" height="460" rx="20"/>
+    <text class="lane-label" x="728" y="328">
+      VÍA COMÚN
+    </text>
+
+    <!-- CONEXIONES -->
+
+    <path class="arrow"
+          d="M120 163 Q212 185 305 207"/>
+    <path class="arrow"
+          d="M305 163 Q305 185 305 207"/>
+    <path class="arrow"
+          d="M185 230 Q212 230 240 230"/>
+
+    <path class="arrow"
+          d="M95 403 Q95 425 95 447"/>
+    <path class="arrow"
+          d="M95 493 Q95 515 95 537"/>
+
+    <path class="arrow"
+          d="M160 560 Q330 560 500 560"/>
+    <path class="arrow"
+          d="M350 560 Q425 560 500 560"/>
+
+    <path class="arrow"
+          d="M565 403 Q565 425 565 447"/>
+    <path class="arrow"
+          d="M565 493 Q565 515 565 537"/>
+
+    <path class="arrow"
+          d="M623 568 Q698 480 772 392"/>
+
+    <path class="arrow"
+          d="M830 423 Q830 500 830 577"/>
+    <path class="arrow"
+          d="M830 523 Q830 550 830 577"/>
+    <path class="arrow"
+          d="M830 623 Q940 655 1050 687"/>
+    <path class="arrow"
+          d="M1050 623 Q1050 655 1050 687"/>
+
+    <path class="arrow"
+          d="M975 145 Q995 145 1015 145"/>
+
+    <!-- HEMOSTASIA PRIMARIA -->
+
+    <g class="factor" data-target="COX1"
+       tabindex="0" role="button"
+       aria-label="COX-1 / TXA2"
+       transform="translate(120,140)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        COX-1 / TXA₂
+      </text>
+    </g>
+
+    <g class="factor" data-target="P2Y12"
+       tabindex="0" role="button"
+       aria-label="P2Y12"
+       transform="translate(305,140)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        P2Y12 (ADP)
+      </text>
+    </g>
+
+    <g class="factor" data-target="VWF"
+       tabindex="0" role="button"
+       aria-label="Factor von Willebrand"
+       transform="translate(120,230)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        vWF / GPIb
+      </text>
+    </g>
+
+    <g class="factor" data-target="PLAQ"
+       tabindex="0" role="button"
+       aria-label="Activación plaquetaria"
+       transform="translate(305,230)">
+      <rect x="-80" y="-24"
+            width="160" height="48" rx="11"/>
+      <text text-anchor="middle" y="5"
+            style="font-size:14px">
+        Activación plaquetaria
+      </text>
+    </g>
+
+    <!-- VÍA INTRÍNSECA -->
+
+    <g class="factor" data-target="XII"
+       tabindex="0" role="button"
+       aria-label="Factor XII"
+       transform="translate(95,380)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        XII → XIIa
+      </text>
+    </g>
+
+    <g class="factor" data-target="XI"
+       tabindex="0" role="button"
+       aria-label="Factor XI"
+       transform="translate(95,470)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        XI → XIa
+      </text>
+    </g>
+
+    <g class="factor" data-target="IX"
+       tabindex="0" role="button"
+       aria-label="Factor IX"
+       transform="translate(95,560)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        IX → IXa
+      </text>
+    </g>
+
+    <g class="factor" data-target="VIII"
+       tabindex="0" role="button"
+       aria-label="Factor VIII"
+       transform="translate(285,560)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        VIII → VIIIa
+      </text>
+    </g>
+
+    <!-- VÍA EXTRÍNSECA -->
+
+    <g class="factor" data-target="VII"
+       tabindex="0" role="button"
+       aria-label="Factor VII"
+       transform="translate(565,380)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        VII → VIIa
+      </text>
+    </g>
+
+    <g class="factor" data-target="TFVIIa"
+       tabindex="0" role="button"
+       aria-label="Complejo factor tisular VIIa"
+       transform="translate(565,470)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        TF–VIIa
+      </text>
+    </g>
+
+    <g class="factor" data-target="X"
+       tabindex="0" role="button"
+       aria-label="Factor X"
+       transform="translate(565,560)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        X → Xa
+      </text>
+    </g>
+
+    <!-- VÍA COMÚN -->
+
+    <g class="factor" data-target="Xa"
+       tabindex="0" role="button"
+       aria-label="Factor Xa"
+       transform="translate(830,400)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Factor Xa
+      </text>
+    </g>
+
+    <g class="factor" data-target="II"
+       tabindex="0" role="button"
+       aria-label="Protrombina"
+       transform="translate(830,500)">
+      <rect x="-80" y="-24"
+            width="160" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Protrombina (II)
+      </text>
+    </g>
+
+    <g class="factor" data-target="IIa"
+       tabindex="0" role="button"
+       aria-label="Trombina"
+       transform="translate(830,600)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Trombina (IIa)
+      </text>
+    </g>
+
+    <g class="factor" data-target="I"
+       tabindex="0" role="button"
+       aria-label="Fibrinógeno"
+       transform="translate(1050,600)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Fibrinógeno (I)
+      </text>
+    </g>
+
+    <g class="factor" data-target="FIBRINA"
+       tabindex="0" role="button"
+       aria-label="Fibrina"
+       transform="translate(1050,710)">
+      <rect x="-80" y="-24"
+            width="160" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Fibrina / coágulo
+      </text>
+    </g>
+
+    <!-- FIBRINÓLISIS -->
+
+    <g class="factor" data-target="PLG"
+       tabindex="0" role="button"
+       aria-label="Plasminógeno"
+       transform="translate(910,145)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Plasminógeno
+      </text>
+    </g>
+
+    <g class="factor" data-target="PLASMINA"
+       tabindex="0" role="button"
+       aria-label="Plasmina"
+       transform="translate(1080,145)">
+      <rect x="-71" y="-24"
+            width="142" height="48" rx="11"/>
+      <text text-anchor="middle" y="5">
+        Plasmina
+      </text>
+    </g>
+
+  </svg>`;
+
+  // Dibujar la cascada según el tamaño de pantalla.
+
+  renderMap = function () {
+
+    const contenedor =
+      document.getElementById("diagram");
+
+    if (!contenedor) return;
+
+    // Conservar el mapa vertical en celular.
+    if (window.innerWidth <= 800) {
+      mapaAnterior();
+      return;
+    }
+
+    contenedor.innerHTML =
+      '<div class="atlas-legend">' +
+      '<span class="atlas-dot"></span>' +
+      'Diana señalada</div>' +
+      mapaSVG +
+      '<div class="atlas-extras">' +
+      '<button type="button" data-target="VKORC1">' +
+      'Vitamina K / VKORC1</button>' +
+      '<button type="button" data-target="VASC">' +
+      'Acción vascular</button>' +
+      '<button type="button" data-target="MUCOSA">' +
+      'Mucosa</button>' +
+      '<button type="button" data-target="LOCAL">' +
+      'Hemostasia local</button>' +
+      '</div>';
+
+    // Permitir tocar los factores.
+
+    contenedor.querySelectorAll("[data-target]")
+      .forEach(function (el) {
+
+        const inspeccionar = function () {
+
+          const clave =
+            el.getAttribute("data-target");
+
+          const info =
+            document.getElementById("factorinfo");
+
+          if (!info) return;
+
+          const relacionados = meds
+            .filter(m => m.t.includes(clave))
+            .map(m => m.n);
+
+          const descripcion =
+            typeof FACTORS !== "undefined" &&
+            FACTORS[clave]
+              ? FACTORS[clave]
+              : "Estructura relacionada con la hemostasia.";
+
+          info.textContent =
+            (el.getAttribute("aria-label") ||
+            el.textContent.trim()) +
+            "\n\n" + descripcion +
+            "\n\nFármacos relacionados: " +
+            (relacionados.join(", ") ||
+            "Ninguno de los incluidos.");
+        };
+
+        el.addEventListener(
+          "click", inspeccionar
+        );
+
+        el.addEventListener(
+          "keydown", function (e) {
+
+            if (e.key === "Enter" ||
+                e.key === " ") {
+              e.preventDefault();
+              inspeccionar();
+            }
+          }
+        );
+
+      });
+  };
+
+  // Mantener iluminación de dianas.
+
+  highlight = function () {
+
+    const medicamento =
+      selected === null ? null : meds[selected];
+
+    const dianas = new Set(
+      medicamento ? medicamento.t : []
+    );
+
+    // Equivalencias del mapa.
+    if (dianas.has("FG")) {
+      dianas.add("I");
+    }
+
+    if (dianas.has("FIB")) {
+      dianas.add("FIBRINA");
+    }
+
+    if (dianas.has("PLM")) {
+      dianas.add("PLASMINA");
+    }
+
+    if (dianas.has("TF")) {
+      dianas.add("TFVIIa");
+    }
+
+    document.querySelectorAll(
+      "#diagram [data-target]"
+    ).forEach(function (el) {
+
+      el.classList.toggle(
+        "hit",
+        dianas.has(
+          el.getAttribute("data-target")
+        )
+      );
+
+    });
+  };
+
+  // Redibujar al cambiar entre móvil y escritorio.
+  window.addEventListener("resize", function () {
+
+    const nuevoModo =
+      window.innerWidth <= 800;
+
+    if (nuevoModo !== modoMovil) {
+
+      modoMovil = nuevoModo;
+      renderMap();
+      highlight();
+
+    }
+  });
+
+  renderMap();
+  highlight();
+
+})();
 </script>
 
 </body>

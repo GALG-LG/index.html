@@ -391,6 +391,82 @@ footer{
     padding:8px 5px;
   }
 }
+
+/* MAPA 70 % - FICHA 30 % */
+
+/* Pantallas de computadora */
+@media (min-width: 901px) {
+
+  main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+  }
+
+  .workspace {
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 7fr) minmax(0, 3fr) !important;
+
+    gap: 12px !important;
+    width: 100% !important;
+    align-items: start !important;
+  }
+
+  .workspace > .panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 14px !important;
+  }
+
+  /* Mostrar el mapa completo */
+  #diagram {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+  }
+
+  #diagram svg.atlas-map {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  /* Mantener el tamaño original de
+     letras y recuadros del diagrama */
+  #diagram .atlas-map .factor rect {
+    transform: none !important;
+  }
+
+  #diagram .atlas-map .factor text {
+    font-size: 15px !important;
+  }
+
+}
+
+/* Celulares y pantallas pequeñas */
+@media (max-width: 900px) {
+
+  .workspace {
+    grid-template-columns: 1fr !important;
+  }
+
+  main {
+    width: 100% !important;
+    padding: 10px !important;
+  }
+
+  #diagram {
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+}
+
 </style>
 </head>
 

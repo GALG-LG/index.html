@@ -31,10 +31,9 @@ body{
   font:15px/1.55 system-ui,Arial,sans-serif;
 }
 main{
-  width:min(1200px,100%);
+  width:min(1600px,96vw);
   margin:auto;
   padding:16px;
-}
 h1{
   margin:0;
   font-size:clamp(28px,4vw,41px);
@@ -160,8 +159,8 @@ button.active{
 }
 .workspace{
   display:grid;
-  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
-  gap:17px;
+  grid-template-columns:minmax(0,1.8fr) minmax(360px,0.9fr);
+  gap:20px;
   align-items:start;
 }
 .lane{
@@ -315,6 +314,82 @@ footer{
   body{background:white;color:black}
   .panel,.card{background:white;color:black}
   button,.nav,.search{display:none}
+}
+/* ===== AJUSTE PARA HACER EL MAPA MÁS GRANDE ===== */
+
+#mapa .panel:first-child{
+  padding:24px;
+}
+
+#diagram{
+  width:100%;
+  min-width:0;
+}
+
+#diagram .cf-map{
+  width:100%;
+}
+
+#diagram .cf-section{
+  padding:18px;
+}
+
+#diagram .cf-node{
+  min-height:44px;
+  font-size:13px;
+  padding:10px 8px;
+}
+
+#diagram .cf-tip{
+  font-size:12px;
+}
+
+#diagram h3{
+  font-size:13px;
+}
+
+/* Pantallas grandes */
+@media(min-width:1200px){
+  .workspace{
+    grid-template-columns:minmax(0,2fr) minmax(340px,0.85fr);
+  }
+
+  main{
+    width:min(1700px,96vw);
+  }
+}
+
+/* Si quieres que en pantallas MUY grandes el mapa sea todavía mayor */
+@media(min-width:1450px){
+  .workspace{
+    grid-template-columns:minmax(0,2.2fr) minmax(340px,0.8fr);
+  }
+}
+
+/* En celular sigue apilado */
+@media(max-width:850px){
+  .workspace{
+    grid-template-columns:1fr;
+  }
+
+  main{
+    width:min(100%,100%);
+    padding:11px;
+  }
+
+  #mapa .panel:first-child{
+    padding:15px;
+  }
+
+  #diagram .cf-section{
+    padding:12px;
+  }
+
+  #diagram .cf-node{
+    font-size:11px;
+    min-height:38px;
+    padding:8px 5px;
+  }
 }
 </style>
 </head>

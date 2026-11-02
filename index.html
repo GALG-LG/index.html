@@ -1,148 +1,1487 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1222">
-<meta name="description" content="Cascada de coagulación interactiva para médicos.">
-<title>Coagulación interactiva · Atlas médico</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#091426">
+<title>Cascada de Coagulación | Dra. Milena Godoy</title>
+
 <style>
-:root{--bg:#07101d;--panel:#101c2e;--panel2:#14233a;--ink:#f2f6fd;--muted:#9eb0c8;--line:#2a3b56;--teal:#42e1c1;--cyan:#66b9fa;--gold:#ffc776;--coral:#ff8b8d;--purple:#c0a0ff;--round:18px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 14% 0%,#15304d 0%,transparent 35%),radial-gradient(ellipse at 92% 8%,#19223c 0%,transparent 34%),var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);min-height:100vh;-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #84e1ff;outline-offset:3px}a{color:#a8dcff}strong{font-weight:740}.app{max-width:1270px;margin:auto;padding:24px 20px 60px}.heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:13px}.mark{background:linear-gradient(140deg,#1e5c79,#174956);border:1px solid #398698;width:49px;height:49px;border-radius:15px;display:grid;place-items:center;color:var(--teal);font-size:26px;flex-shrink:0}.eyebrow{text-transform:uppercase;letter-spacing:2px;color:var(--teal);font-weight:750;font-size:10px;margin-bottom:5px}.heading h1{font-size:clamp(23px,2.8vw,35px);line-height:1.14;letter-spacing:-.8px;margin:0}.subtitle{font-size:13px;color:var(--muted);margin:7px 0 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.ghost{border:1px solid var(--line);background:#152438;border-radius:11px;padding:10px 13px;font-size:12px;font-weight:700;transition:.2s}.ghost:hover{border-color:#57c7cf;background:#1d3247}.intro{border:1px solid #2b4859;background:linear-gradient(100deg,#153442 0%,#112036 62%,#101c30 100%);border-radius:var(--round);padding:19px 21px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.intro h2{font-size:19px;letter-spacing:-.3px;margin:0 0 4px}.intro p{margin:0;color:#b8cedd;font-size:13px;line-height:1.55}.stepnum{font-size:10px;letter-spacing:1.3px;color:var(--teal);font-weight:800;text-transform:uppercase;white-space:nowrap}.filters{background:#101b2c;border:1px solid var(--line);border-radius:var(--round);padding:18px;margin-bottom:17px}.controlhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.controlhead h2{font-size:15px;letter-spacing:-.1px;margin:0}.micro{font-size:11px;color:var(--muted)}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.tab{border-radius:25px;padding:9px 14px;border:1px solid #2d4660;color:#b8c7db;background:#14243a;font-size:12px;font-weight:720}.tab.active{background:#214d56;color:#b6fff0;border-color:#51c9b0}.druglist{display:flex;gap:8px;flex-wrap:wrap;min-height:39px}.drug{padding:10px 14px;border:1px solid #3a4f6b;border-radius:10px;background:#192943;font-size:13px;font-weight:670;transition:background .2s,border-color .2s,transform .2s}.drug:hover{background:#263d59;transform:translateY(-1px)}.drug.selected{background:var(--teal);color:#06272b;border-color:var(--teal);box-shadow:0 0 0 3px #44dbbd30}.bodygrid{display:grid;grid-template-columns:minmax(0,1.82fr) minmax(298px,1fr);gap:17px;align-items:start}.diagram,.insight,.extra,.quiz{border:1px solid var(--line);background:linear-gradient(160deg,#111e31 0%,#0e1a2b 100%);border-radius:var(--round)}.diagram{min-width:0;overflow:hidden}.paneltop{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:18px 20px 0}.paneltop h2{font-size:16px;letter-spacing:-.3px;margin:0}.key{display:inline-flex;gap:8px;align-items:center;color:#afbfce;font-size:11px}.key i{display:block;width:9px;height:9px;background:var(--gold);border-radius:100%;box-shadow:0 0 0 3px #ffc77624}.chartdesktop{padding:0 13px 8px;display:block}.chartdesktop svg{display:block;width:100%;max-height:645px;overflow:visible}.path{fill:none;stroke:#58728a;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}.path.dash{stroke-dasharray:6 7;opacity:.75}.path.activity{stroke:var(--gold);stroke-width:4;filter:drop-shadow(0 0 4px #ffc77688)}.lane{font-size:14px;letter-spacing:1.3px;font-weight:800}.lane.left{fill:#73c6f9}.lane.right{fill:#bda3ff}.lane.common{fill:#ffc776}.svgnode{cursor:pointer;outline:0}.svgnode rect{fill:#172b43;stroke:#39516a;stroke-width:1.6;transition:fill .16s,stroke .16s}.svgnode text{fill:#ecf4ff;font-size:15px;font-weight:700;pointer-events:none}.svgnode .small{fill:#9db5cb;font-size:11px;font-weight:500}.svgnode:hover rect,.svgnode:focus rect{fill:#244360;stroke:#8bdef1}.svgnode.target rect{fill:#57442f;stroke:var(--gold);stroke-width:3;filter:drop-shadow(0 0 11px #ffc77675)}.svgnode.target text{fill:#fff7e7}.svgnode.focus rect{stroke:var(--teal);stroke-width:3}.chartmobile{display:none}.diagramtip{font-size:11px;color:#92a5bd;line-height:1.6;padding:0 20px 16px;margin:0}.rightcol{display:grid;gap:17px}.insight{padding:22px;min-height:272px}.tag{display:inline-flex;border-radius:30px;padding:6px 10px;border:1px solid #39536a;background:#1b3147;text-transform:uppercase;letter-spacing:.8px;font-size:10px;color:#b1d8ed;font-weight:850}.insight h2{font-size:25px;letter-spacing:-.7px;line-height:1.1;margin:15px 0 10px}.insight p{color:#c5d3e3;font-size:13px;line-height:1.7;margin:0 0 15px}.targetline{display:flex;align-items:baseline;gap:9px;margin:10px 0}.targetline .cap{min-width:73px;color:#829bb5;text-transform:uppercase;letter-spacing:.7px;font-size:10px;font-weight:800}.targetline span:nth-child(2){font-size:13px;color:#e7f6ff}.principle{background:#142c3c;border:1px solid #31566a;color:#bdeddf;border-radius:12px;padding:12px 13px;line-height:1.5;font-size:12px}.minimark{display:inline-block;border-radius:5px;background:#634c30;color:#ffe3a8;padding:2px 6px;margin-right:3px;font-size:11px;font-weight:760}.extra{padding:17px 18px}.extra h3{font-size:14px;margin:0 0 7px}.extra p{font-size:12px;line-height:1.6;color:#acc0d3;margin:0 0 12px}.minirow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mininode{border:1px solid #3c5875;background:#172b43;border-radius:11px;text-align:left;min-height:59px;padding:11px 10px;font-size:12px;font-weight:750}.mininode small{display:block;font-size:10px;color:#99b3c5;font-weight:500;margin-top:4px}.mininode.target{background:#59442d;border-color:var(--gold);box-shadow:0 0 0 2px #ffc77622}.mininode.focus{border-color:var(--teal)}.quiz{padding:20px;margin-top:17px}.quiztop{display:flex;gap:16px;align-items:center;justify-content:space-between}.quiz h2{font-size:18px;margin:3px 0}.quiztop .ghost{font-size:11px}.question{font-size:15px;margin:16px 0 12px;color:#ecf3ff;font-weight:670;line-height:1.5}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.choice{border:1px solid #38516c;border-radius:11px;padding:12px;background:#17283e;font-size:13px;font-weight:650;text-align:left}.choice:not(:disabled):hover{background:#28405b}.choice.correct{background:#174d40;border-color:#56e1af;color:#c6ffdf}.choice.wrong{background:#63343c;border-color:#fa8b92}.choice:disabled{cursor:default}.feedback{font-size:12px;margin:12px 0 0;color:#b8cce0;line-height:1.6;min-height:19px}.footer{margin-top:24px;padding-top:20px;border-top:1px solid #22364a;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;color:#869cb5;font-size:11px;line-height:1.7}.footer p{max-width:700px;margin:0}.references{max-width:400px}.references b{color:#b7cbdc}.references a{display:block;margin-top:2px}.dots{width:6px;height:6px;display:inline-block;border-radius:50%;background:#7fa5bc;margin:0 4px 2px}.present .intro,.present .quiz,.present .footer,.present .extra{display:none}.present .bodygrid{grid-template-columns:minmax(0,2.4fr) minmax(280px,.8fr)}.present .diagram svg{max-height:72vh}.mobileflow{display:none}@media(max-width:900px){.bodygrid{grid-template-columns:1fr}.rightcol{grid-template-columns:1fr 1fr}.rightcol .insight{grid-row:span 2}.present .bodygrid{grid-template-columns:1fr}.present .extra{display:none}.chartdesktop svg{max-height:none}}@media(max-width:650px){.app{padding:17px 12px 40px}.heading{align-items:flex-start}.brand{align-items:flex-start}.mark{width:40px;height:40px;font-size:22px;border-radius:12px}.heading h1{font-size:22px}.subtitle{font-size:12px}.heading{flex-wrap:wrap}.actions{width:100%}.actions .ghost{flex:1}.intro{padding:15px;align-items:flex-start}.intro h2{font-size:16px}.intro p{font-size:12px}.stepnum{display:none}.filters{padding:14px}.drug{font-size:12px;padding:9px 10px}.tab{font-size:11px;padding:8px 12px}.controlhead{align-items:flex-start}.controlhead h2{font-size:14px}.micro{display:none}.chartdesktop{display:none}.chartmobile{display:block;padding:14px 13px 8px}.twolanes{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mobilelane{border:1px solid #34516e;background:#12273d;border-radius:13px;padding:10px 8px}.mobilelane h3{font-size:12px;text-align:center;letter-spacing:.7px;margin:0 0 12px;color:#87ccf7}.mobilelane:nth-child(2) h3{color:#c3b0fb}.chain{display:grid;gap:7px}.mobilefactor{border:1px solid #365574;background:#18314a;border-radius:10px;padding:11px 5px;min-height:45px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;text-align:center}.mobilefactor.target{border:2px solid var(--gold);background:#6b4b27;color:#fff4d8;box-shadow:0 0 12px #ffc77625}.mobilefactor.focus{border-color:var(--teal)}.flowarrow{text-align:center;color:#678aa0;line-height:12px;font-size:13px}.joint{text-align:center;font-size:10px;letter-spacing:1px;margin:15px 0 8px;color:#ffc776;font-weight:820}.commonchain{display:grid;max-width:380px;margin:auto;gap:5px}.commonrow{display:grid;grid-template-columns:1fr 1fr;gap:9px;align-items:center}.cofactor{text-align:center;font-size:11px;color:#afc5d5}.rightcol{grid-template-columns:1fr}.rightcol .insight{grid-row:auto}.insight{min-height:0;padding:19px}.insight h2{font-size:23px}.minirow{grid-template-columns:1fr 1fr}.answers{grid-template-columns:1fr}.quiz{padding:16px}.paneltop{padding:16px 15px 0}.diagramtip{padding:0 15px 15px}.footer{margin-top:16px}.present .chartdesktop{display:none}.present .chartmobile{display:block}.present .intro{display:none}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+:root {
+  --bg:#091426;
+  --panel:#12223b;
+  --panel2:#1a304d;
+  --line:#35516e;
+  --text:#f4f9ff;
+  --muted:#b6cbe0;
+  --blue:#54baf5;
+  --purple:#bb94f9;
+  --red:#ff9382;
+  --green:#55e0b7;
+  --yellow:#ffd17e;
+  --selected:var(--blue);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:15px/1.55 system-ui,Arial,sans-serif;
+}
+main{
+  width:min(1200px,100%);
+  margin:auto;
+  padding:16px;
+}
+h1{
+  margin:0;
+  font-size:clamp(28px,4vw,41px);
+  line-height:1.15;
+}
+h2{
+  font-size:21px;
+  margin:0 0 12px;
+}
+h3{
+  font-size:16px;
+  margin:0 0 8px;
+}
+p{margin:8px 0}
+small,.muted{color:var(--muted)}
+a{color:#a3dfff}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin:16px 0 24px;
+}
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+.logo{
+  width:60px;
+  height:60px;
+  display:grid;
+  place-items:center;
+  border-radius:17px;
+  background:#174657;
+  color:#72efd5;
+  font-size:24px;
+  font-weight:800;
+}
+.kicker{
+  color:#61e5d3;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.8px;
+}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  min-width:0;
+}
+button{
+  font:inherit;
+  font-weight:700;
+  color:white;
+  background:#203955;
+  border:1px solid #496580;
+  border-radius:11px;
+  padding:10px 13px;
+  cursor:pointer;
+}
+button:hover{filter:brightness(1.16)}
+button:focus-visible,
+a:focus-visible{
+  outline:3px solid var(--yellow);
+  outline-offset:3px;
+}
+button.active{
+  background:var(--selected);
+  color:#071829;
+  border-color:var(--selected);
+}
+.row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:16px;
+}
+.nav a{
+  padding:8px 12px;
+  text-decoration:none;
+  border:1px solid #36516c;
+  border-radius:25px;
+  font-size:12px;
+  background:#132943;
+}
+.groups{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:16px;
+}
+.groups button{
+  border-left:5px solid var(--color);
+}
+.druglist{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:17px;
+}
+.druglist button{
+  font-size:12px;
+}
+.search{
+  width:100%;
+  max-width:380px;
+  background:#0e2139;
+  color:white;
+  border:1px solid #486681;
+  border-radius:10px;
+  padding:11px;
+  font:inherit;
+  margin-top:12px;
+}
+.workspace{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  gap:17px;
+  align-items:start;
+}
+.lane{
+  border:1px solid #395a79;
+  background:#172d48;
+  border-radius:13px;
+  padding:13px;
+  margin:11px 0;
+}
+.lane h3{
+  color:#8ed8ff;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:12px;
+  margin-bottom:10px;
+}
+.nodes{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.node{
+  font-size:12px;
+  background:#25425f;
+  padding:10px 5px;
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.node.hit{
+  color:#182335;
+  background:var(--yellow);
+  border-color:#fff1bf;
+  box-shadow:0 0 0 2px #ffd17e55;
+}
+.arrow{
+  text-align:center;
+  color:#a1cbeb;
+  font-size:18px;
+}
+.info{
+  background:var(--panel2);
+  border:1px solid #3d5773;
+  padding:16px;
+  border-radius:12px;
+  white-space:pre-line;
+  min-height:130px;
+}
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:15px 0;
+}
+.tabs button{
+  font-size:12px;
+  padding:9px 10px;
+}
+.tag{
+  display:inline-block;
+  color:#94f2d9;
+  background:#1b4957;
+  border-radius:30px;
+  padding:5px 11px;
+  font-size:11px;
+  font-weight:800;
+}
+.warning{
+  background:#3d3023;
+  border-left:4px solid #f7c778;
+  color:#ffe4af;
+  padding:12px;
+  border-radius:9px;
+  margin-top:13px;
+  font-size:13px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.card{
+  background:#192e49;
+  border:1px solid #3b5672;
+  border-radius:13px;
+  padding:16px;
+}
+.card p{font-size:13px}
+.card small{font-size:12px}
+details{
+  background:#172d47;
+  border:1px solid #3a5771;
+  border-radius:12px;
+  padding:14px;
+  margin:10px 0;
+}
+details[open]{border-color:#70bac8}
+summary{
+  font-weight:800;
+  cursor:pointer;
+}
+details p{font-size:13px}
+.note{
+  background:#173b49;
+  border-left:3px solid #59dcbf;
+  padding:12px;
+  border-radius:8px;
+  margin:10px 0;
+  font-size:13px;
+}
+.measure{
+  background:#133c4b;
+  border:1px solid #427e85;
+  padding:13px;
+  border-radius:11px;
+  margin:12px 0;
+}
+.measure strong{
+  display:block;
+  color:#71f0d0;
+  font-size:clamp(19px,3vw,25px);
+}
+.rule{
+  background:#203a55;
+  padding:10px;
+  border-radius:8px;
+  margin:8px 0;
+  font-size:12px;
+}
+.rule b{color:#96ddff}
+.ref{
+  padding:10px 0;
+  border-bottom:1px solid #35506b;
+  font-size:13px;
+}
+footer{
+  text-align:center;
+  padding:25px 0;
+  color:#b3cadf;
+  border-top:1px solid #304a64;
+}
+@media(max-width:850px){
+  .workspace{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  main{padding:11px}
+  .panel{padding:15px}
+  header{align-items:flex-start}
+  .logo{width:49px;height:49px;font-size:19px}
+  .tabs button{flex:1}
+}
+@media print{
+  body{background:white;color:black}
+  .panel,.card{background:white;color:black}
+  button,.nav,.search{display:none}
+}
 </style>
 </head>
+
 <body>
-<div class="app" id="app">
- <header class="heading">
-  <div class="brand"><div class="mark" aria-hidden="true">MG</div><div><div class="eyebrow">Atlas de hemostasia · Recurso docente</div><h1>Cascada de coagulación</h1><p class="subtitle">Explora dónde actúa cada fármaco · Disponible sin conexión</p></div></div>
-  <div class="actions"><button class="ghost" id="reset" type="button">↺ Reiniciar</button><button class="ghost" id="present" type="button" aria-pressed="false">▣ Modo exposición</button></div>
- </header>
- <section class="intro"><div><h2>De la vía intrínseca y extrínseca a la fibrina</h2><p>Selecciona un medicamento para iluminar sus dianas. Después toca cualquier factor para estudiar su función.</p></div><span class="stepnum">01 / Aprender visualmente</span></section>
- <section class="filters" aria-labelledby="select-title"><div class="controlhead"><h2 id="select-title">Elige un fármaco</h2><span class="micro">Los sitios afectados se resaltan en amarillo</span></div><div class="tabs" id="tabs" role="tablist" aria-label="Tipo de fármacos"><button class="tab active" data-tab="anticoag" role="tab" aria-selected="true">Anticoagulantes</button><button class="tab" data-tab="antiplate" role="tab" aria-selected="false">Antiagregantes</button><button class="tab" data-tab="fibrino" role="tab" aria-selected="false">Fibrinolíticos</button></div><div id="druglist" class="druglist" aria-label="Fármacos disponibles"></div></section>
- <main class="bodygrid">
-  <section class="diagram" aria-labelledby="diagramtitle"><div class="paneltop"><h2 id="diagramtitle">Mapa de la coagulación</h2><span class="key"><i></i> Sitio de acción</span></div>
-   <div class="chartdesktop"><svg viewBox="0 0 1080 692" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Esquema interactivo de vías intrínseca y extrínseca convergentes en factor X y vía común hasta la fibrina"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L7 3 L0 6" fill="none" stroke="#718ba4" stroke-width="1.2" /></marker></defs>
-   <text class="lane left" x="45" y="42">VÍA INTRÍNSECA</text><text class="lane right" x="756" y="42">VÍA EXTRÍNSECA</text><text class="lane common" x="473" y="315">VÍA COMÚN</text>
-   <g id="edges" aria-hidden="true">
-    <path class="path" d="M150 139 V170"/><path class="path" d="M150 225 V260"/><path class="path" d="M150 315 C150 362 330 365 462 365"/><path class="path dash" d="M335 315 C402 319 433 342 465 354"/>
-    <path class="path" d="M811 140 L811 187"/><path class="path" d="M985 140 L905 193"/><path class="path" d="M830 248 C813 325 685 362 615 365"/>
-    <path class="path" d="M540 395 V425"/><path class="path" d="M540 489 V509"/><path class="path" d="M424 541 H451"/><path class="path dash" d="M663 457 H616"/><path class="path dash" d="M626 541 H660"/><path class="path" d="M835 541 H889"/><path class="path" d="M969 572 V606"/><path class="path dash" d="M830 636 H879"/>
-   </g>
-   <g id="nodes"></g>
-   
-   </svg></div>
-   <div class="chartmobile" aria-label="Mapa de coagulación optimizado para teléfonos">
-    <div class="twolanes"><section class="mobilelane"><h3>INTRÍNSECA</h3><div class="chain"><button data-node="XII" class="mobilefactor">XII → XIIa</button><div class="flowarrow">↓</div><button data-node="XI" class="mobilefactor">XI → XIa</button><div class="flowarrow">↓</div><button data-node="IX" class="mobilefactor">IX → IXa</button><button data-node="VIIIa" class="mobilefactor">+ VIIIa (cofactor)</button></div></section>
-     <section class="mobilelane"><h3>EXTRÍNSECA</h3><div class="chain"><button data-node="TF" class="mobilefactor">Factor tisular</button><div class="flowarrow">+</div><button data-node="VII" class="mobilefactor">VII → VIIa</button><div class="flowarrow">↓</div><button data-node="TFVIIa" class="mobilefactor">Complejo TF–VIIa</button></div></section></div>
-    <div class="joint">↓ AMBAS CONVERGEN ↓</div><div class="commonchain"><button data-node="X" class="mobilefactor">Factor X</button><div class="flowarrow">↓</div><div class="commonrow"><button data-node="Xa" class="mobilefactor">Factor Xa</button><button data-node="Va" class="mobilefactor">+ Va (cofactor)</button></div><div class="flowarrow">↓</div><div class="commonrow"><button data-node="II" class="mobilefactor">II · Protrombina</button><button data-node="IIa" class="mobilefactor">IIa · Trombina</button></div><div class="flowarrow">↓</div><div class="commonrow"><button data-node="I" class="mobilefactor">I · Fibrinógeno</button><button data-node="FIBRINA" class="mobilefactor">Fibrina</button></div><div class="flowarrow">↓</div><div class="commonrow"><button data-node="XIIIa" class="mobilefactor">XIIIa</button><button data-node="COAGULO" class="mobilefactor">Fibrina estabilizada</button></div></div></div>
-   <p class="diagramtip">Esquema docente simplificado: el sistema fisiológico funciona mediante complejos en superficies celulares, cofactores y mecanismos de amplificación. Las flechas no representan todos los pasos bioquímicos.</p>
-  </section>
-  <aside class="rightcol"><section class="insight" aria-live="polite"><span class="tag" id="detailtag">GUÍA DE USO</span><h2 id="detailtitle">Selecciona un fármaco</h2><p id="detailbody">Verás sus dianas resaltadas en el esquema, el mecanismo de acción y una clave útil para explicarlo a los médicos.</p><div class="targetline"><span class="cap">Diana</span><span id="detailtargets">—</span></div><div class="targetline"><span class="cap">Tipo</span><span id="detailtype">—</span></div><div class="principle" id="detailnote">Empieza por apixabán, heparina o warfarina para contrastar mecanismos directos, indirectos y síntesis de factores.</div></section>
-  <section class="extra"><h3>Hemostasia primaria · Plaquetas</h3><p>Aspirina y clopidogrel no inhiben directamente los factores de la cascada plasmática.</p><div class="minirow"><button class="mininode" data-node="COX1">COX-1 <small>↓ Tromboxano A₂</small></button><button class="mininode" data-node="P2Y12">Receptor P2Y₁₂ <small>↓ Activación plaquetaria</small></button></div></section>
-  <section class="extra"><h3>Fibrinólisis · Disolución del coágulo</h3><p>La alteplasa activa el plasminógeno; la plasmina resultante degrada la fibrina.</p><div class="minirow"><button class="mininode" data-node="PLASMINOGENO">Plasminógeno <small>→ Plasmina</small></button><button class="mininode" data-node="PLASMIN">Plasmina <small>→ Degrada fibrina</small></button></div></section></aside>
- </main>
- <section class="quiz" id="quiz" aria-labelledby="quiztitle"><div class="quiztop"><div><div class="eyebrow">02 / Comprobar conocimientos</div><h2 id="quiztitle">Miniquiz para tu audiencia</h2></div><button class="ghost" id="nextquestion">Otra pregunta →</button></div><div class="question" id="question"></div><div class="answers" id="answers"></div><p class="feedback" id="feedback" aria-live="polite"></p></section>
- <footer class="footer"><p><strong>Material educativo, no una guía de prescripción.</strong> No incluye dosis, indicaciones, contraindicaciones ni sustitutos de protocolos institucionales. El esquema intrínseco/extrínseco es útil en docencia, pero simplifica el modelo celular de hemostasia.</p><div class="references"><b>Fuentes para ampliar:</b><a href="https://www.ncbi.nlm.nih.gov/books/NBK507795/" target="_blank" rel="noopener">NCBI · Fisiología de coagulación</a><a href="https://www.msdmanuals.com/professional/hematology-and-oncology/hemostasis/overview-of-hemostasis" target="_blank" rel="noopener">MSD · Hemostasia y sitios de acción</a><a href="https://www.ncbi.nlm.nih.gov/books/NBK537062/" target="_blank" rel="noopener">NCBI · Antiagregantes</a><a href="https://www.ncbi.nlm.nih.gov/books/NBK499977/" target="_blank" rel="noopener">NCBI · Alteplasa</a></div></footer>
+<main>
+
+<header>
+ <div class="brand">
+  <div class="logo">MG</div>
+  <div>
+   <div class="kicker">
+    ATLAS DE HEMOSTASIA · RECURSO DOCENTE
+   </div>
+   <h1>Cascada de coagulación</h1>
+   <p class="muted">
+    Explora dónde actúa cada fármaco
+   </p>
+   <small>
+    Elaborado por <b>Dra. Milena Godoy</b>
+   </small>
+  </div>
+ </div>
+ <div class="row">
+  <button id="reset">↻ Reiniciar</button>
+  <button id="present">▣ Modo exposición</button>
+ </div>
+</header>
+
+<nav class="nav">
+ <a href="#farmacos">1. Fármacos</a>
+ <a href="#mapa">2. Cascada</a>
+ <a href="#patologias">3. Patologías</a>
+ <a href="#paliativos">4. Cuidados paliativos</a>
+ <a href="#componentes">5. Transfusiones</a>
+ <a href="#bibliografia">6. Bibliografía</a>
+</nav>
+
+<section class="panel">
+ <h2>Hemostasia y tratamiento farmacológico</h2>
+ <p>
+  Selecciona uno de los cuatro grupos farmacológicos
+  y después un medicamento.
+  Se iluminará la diana donde actúa.
+ </p>
+ <p>
+  Consulta su mecanismo, dosis por indicación,
+  contraindicaciones y presentación.
+ </p>
+ <div class="warning">
+  Herramienta educativa para profesionales de salud.
+  Las dosis requieren validación con la indicación,
+  peso, función renal, interacciones, ficha técnica
+  y protocolo institucional.
+ </div>
+</section>
+
+<section class="panel" id="farmacos">
+ <h2>1. Elige un fármaco</h2>
+ <div class="groups" id="groups"></div>
+ <input
+  type="search"
+  id="search"
+  class="search"
+  placeholder="Buscar medicamento..."
+  aria-label="Buscar medicamento">
+ <div class="druglist" id="druglist"></div>
+</section>
+
+<div class="workspace" id="mapa">
+
+<section class="panel">
+ <h2>2. Mapa interactivo de hemostasia</h2>
+ <p class="muted">
+  Toca una estructura para conocer su función.
+  Los objetivos del medicamento se iluminan en amarillo.
+ </p>
+ <div id="diagram"></div>
+ <div class="info" id="factorinfo">
+  Selecciona una estructura de la cascada.
+ </div>
+</section>
+
+<section class="panel">
+ <span class="tag" id="druggroup">
+  GUÍA DE USO
+ </span>
+ <h2 id="drugtitle" style="margin-top:12px">
+  Selecciona un medicamento
+ </h2>
+ <p class="muted" id="drugtarget">
+  Su diana aparecerá resaltada.
+ </p>
+ <div class="tabs" id="tabs"></div>
+ <div class="info" id="detail">
+  Selecciona un fármaco para comenzar.
+ </div>
+ <p class="muted" id="source"></p>
+ <div class="warning">
+  No utilizar estas fichas como indicaciones
+  automáticas de prescripción.
+ </div>
+</section>
+
 </div>
+
+<section class="panel" id="patologias">
+ <h2>3. Patologías principales y tratamiento</h2>
+ <p class="muted">
+  Opciones habituales de tratamiento, sujetas
+  a selección clínica individualizada.
+ </p>
+ <div class="cards" id="diseases"></div>
+</section>
+
+<section class="panel" id="paliativos">
+ <h2>4. Manejo de sangrados en cuidados paliativos</h2>
+ <p>
+  Opciones por sitio de sangrado, basadas en la tabla
+  clínica aportada y diferenciadas de las advertencias
+  de seguridad y dosis complementarias.
+ </p>
+ <div id="bleedlist"></div>
+</section>
+
+<section class="panel" id="componentes">
+ <h2>5. Componentes sanguíneos y laboratorio</h2>
+ <p>
+  Parámetros que orientan la necesidad
+  de transfusión en adultos.
+ </p>
+ <div class="warning">
+  Los resultados de laboratorio no deben
+  interpretarse de manera aislada. En hemorragia
+  masiva puede requerirse transfusión inmediata,
+  sin esperar los resultados de hemoglobina.
+ </div>
+ <div class="cards" id="bloodlist"
+ style="margin-top:15px"></div>
+</section>
+
+<section class="panel" id="bibliografia">
+ <h2>6. Bibliografía científica</h2>
+ <div id="references"></div>
+</section>
+
+<footer>
+ <strong>Cascada de coagulación interactiva</strong>
+ <p>Elaborado por Dra. Milena Godoy</p>
+ <small>
+  Recurso educativo para médicos · 2026
+ </small>
+</footer>
+
+</main>
+
 <script>
-(()=>{
-'use strict';
-const factorInfo={
- XII:['Factor XII (Hageman)','Inicio de la vía de contacto en el modelo clásico; pasa a XIIa. Su papel in vivo no equivale exactamente al del esquema de laboratorio.'],
- XI:['Factor XI','XI → XIa; contribuye a la amplificación de la vía intrínseca.'],
- IX:['Factor IX','Factor dependiente de vitamina K. IXa se une a VIIIa para favorecer la activación de X.'],
- VIIIa:['Factor VIIIa','Cofactor de IXa en el complejo tenasa intrínseco.'],
- TF:['Factor tisular','Inicia la vía extrínseca al asociarse con factor VII/VIIa.'],
- VII:['Factor VII','Factor dependiente de vitamina K; VIIa forma complejo con factor tisular.'],
- TFVIIa:['Complejo TF–VIIa','El complejo factor tisular–VIIa activa el factor X y también puede activar IX.'],
- X:['Factor X','Factor dependiente de vitamina K; punto de convergencia de las vías intrínseca y extrínseca.'],
- Xa:['Factor Xa','Serinproteasa que forma el complejo protrombinasa con Va, fosfolípidos y calcio. Principal diana de anticoagulantes.'],
- Va:['Factor Va','Cofactor del factor Xa en la protrombinasa; facilita II → IIa.'],
- II:['Factor II (protrombina)','Factor dependiente de vitamina K, precursor de la trombina (IIa).'],
- IIa:['Factor IIa (trombina)','Convierte fibrinógeno en fibrina y amplifica la coagulación mediante múltiples factores.'],
- I:['Factor I (fibrinógeno)','Proteína soluble que la trombina transforma en fibrina.'],
- FIBRINA:['Fibrina','Red insoluble que estabiliza el tapón hemostático; es degradada por plasmina.'],
- XIIIa:['Factor XIIIa','Entrecruza las fibras de fibrina y estabiliza el coágulo.'],
- COAGULO:['Fibrina estabilizada','Fibrina entrecruzada por XIIIa: contribuye a la estabilidad del coágulo.'],
- COX1:['COX-1 plaquetaria','Enzima que permite la producción de tromboxano A₂, mediador de activación plaquetaria.'],
- P2Y12:['Receptor plaquetario P2Y₁₂','Receptor de ADP implicado en activación y agregación plaquetaria.'],
- PLASMINOGENO:['Plasminógeno','Zimógeno transformado a plasmina por activadores como alteplasa.'],
- PLASMIN:['Plasmina','Enzima proteolítica que degrada la fibrina del coágulo.']
+"use strict";
+
+// ======================================
+// 1. GRUPOS FARMACOLÓGICOS
+// ======================================
+
+const COLORS={
+ antico:"#54baf5",
+ antiag:"#bb94f9",
+ fibro:"#ff9382",
+ hemo:"#55e0b7"
 };
-const drugs=[
- {id:'heparina',name:'Heparina no fraccionada',tab:'anticoag',targets:['Xa','IIa'],type:'Anticoagulante parenteral indirecto',tag:'POTENCIA ANTITROMBINA',body:'Se une a antitrombina y acelera la inhibición de trombina (IIa) y factor Xa. También tiene actividad sobre otros factores activados.',note:'Clave docente: no es un inhibidor directo del factor Xa ni de la trombina; depende de antitrombina.'},
- {id:'enox',name:'Enoxaparina',tab:'anticoag',targets:['Xa'],type:'Heparina de bajo peso molecular',tag:'ANTICOAGULANTE INDIRECTO',body:'Potencia antitrombina y ejerce una actividad anti-Xa predominante. Tiene menor actividad anti-IIa que la heparina no fraccionada.',note:'El resaltado indica la acción predominante; existe actividad anti-IIa menor.'},
- {id:'fonda',name:'Fondaparinux',tab:'anticoag',targets:['Xa'],type:'Inhibidor indirecto selectivo de Xa',tag:'DEPENDE DE ANTITROMBINA',body:'Se une a antitrombina y facilita la inhibición selectiva del factor Xa; no inhibe directamente la trombina.',note:'Contrástalo con apixabán: ambos afectan Xa, pero solo fondaparinux necesita antitrombina.'},
- {id:'apix',name:'Apixabán',tab:'anticoag',targets:['Xa'],type:'Anticoagulante oral directo',tag:'INHIBIDOR DIRECTO DE Xa',body:'Inhibe directamente la actividad del factor Xa, reduciendo la generación de trombina sin necesidad de antitrombina.',note:'Pregunta para la audiencia: ¿actúa antes o después del punto de convergencia de las vías?'},
- {id:'riva',name:'Rivaroxabán',tab:'anticoag',targets:['Xa'],type:'Anticoagulante oral directo',tag:'INHIBIDOR DIRECTO DE Xa',body:'Inhibe directamente el factor Xa en la vía común, limitando la generación de trombina.',note:'Rivaroxabán y apixabán comparten la misma diana principal: Xa.'},
- {id:'dabi',name:'Dabigatrán',tab:'anticoag',targets:['IIa'],type:'Anticoagulante oral directo',tag:'INHIBIDOR DIRECTO DE TROMBINA',body:'Inhibe directamente la trombina (factor IIa) e impide que actúe sobre el fibrinógeno para producir fibrina.',note:'Diferencia esencial: dabigatrán actúa en IIa; apixabán y rivaroxabán, en Xa.'},
- {id:'warfarina',name:'Warfarina',tab:'anticoag',targets:['II','VII','IX','X'],type:'Antagonista de vitamina K',tag:'DISMINUYE FACTORES FUNCIONALES',body:'Inhibe VKORC1 y reduce la activación por γ-carboxilación de los factores dependientes de vitamina K II, VII, IX y X; también afecta proteínas C y S.',note:'Importante: no bloquea directamente esos factores ya circulantes; altera la producción hepática de factores funcionales.'},
- {id:'argatroban',name:'Argatrobán',tab:'anticoag',targets:['IIa'],type:'Inhibidor directo parenteral de trombina',tag:'INHIBIDOR DIRECTO DE IIa',body:'Se une directamente a la trombina (IIa), independientemente de antitrombina.',note:'Compáralo con dabigatrán: misma diana principal, diferente fármaco y vía de administración.'},
- {id:'asa',name:'Aspirina (AAS)',tab:'antiplate',targets:['COX1'],type:'Antiagregante plaquetario',tag:'NO ACTÚA EN LA CASCADA PLASMÁTICA',body:'Inhibe de manera irreversible COX-1 plaquetaria, disminuyendo la síntesis de tromboxano A₂ y la activación/agregación plaquetaria.',note:'Pertenece a la hemostasia primaria, por eso su diana está en el panel de plaquetas y no en Xa o IIa.'},
- {id:'clop',name:'Clopidogrel',tab:'antiplate',targets:['P2Y12'],type:'Antiagregante plaquetario',tag:'RECEPTOR P2Y₁₂',body:'Su metabolito activo bloquea de forma irreversible el receptor plaquetario P2Y₁₂ para ADP y disminuye la agregación.',note:'No es anticoagulante: afecta la activación de plaquetas, no un factor plasmático de coagulación.'},
- {id:'alteplasa',name:'Alteplasa (rtPA)',tab:'fibrino',targets:['PLASMINOGENO'],type:'Fibrinolítico',tag:'ACTIVA LA FIBRINÓLISIS',body:'Promueve la transformación de plasminógeno a plasmina, especialmente en el coágulo; la plasmina degrada la fibrina.',note:'Anticoagulantes impiden la propagación de la coagulación; alteplasa favorece la degradación de fibrina ya formada.'}
+
+const GROUPS=[
+ ["antico","Anticoagulantes"],
+ ["antiag","Antiagregantes"],
+ ["fibro","Fibrinolíticos"],
+ ["hemo","Hemostáticos"]
 ];
-const graphNodes=[
- ['XII',150,110,'XII → XIIa','contacto',148],['XI',150,196,'XI → XIa','intrínseca',148],['IX',150,287,'IX → IXa','vitamina K',148],['VIIIa',334,287,'VIIIa','cofactor',132],
- ['TF',811,111,'Factor tisular','iniciador',147],['VII',985,111,'VII → VIIa','vitamina K',148],['TFVIIa',830,220,'TF–VIIa','complejo',169],
- ['X',540,367,'Factor X','vitamina K',143],['Xa',540,457,'Factor Xa','enzima',143],['Va',734,457,'Factor Va','cofactor',142],
- ['II',335,541,'II · Protrombina','vitamina K',172],['IIa',540,541,'IIa · Trombina','enzima',168],['I',748,541,'I · Fibrinógeno','sustrato',166],['FIBRINA',969,541,'Fibrina','malla insoluble',152],['XIIIa',748,636,'XIIIa','estabiliza fibrina',153],['COAGULO',969,636,'Fibrina estable','coágulo',170]
-];
-const ns='http://www.w3.org/2000/svg';
-const group=document.querySelector('#nodes');
-graphNodes.forEach(([id,x,y,label,desc,width])=>{
- const g=document.createElementNS(ns,'g');g.setAttribute('class','svgnode');g.setAttribute('data-node',id);g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',factorInfo[id][0]);
- const rect=document.createElementNS(ns,'rect');rect.setAttribute('x',x-width/2);rect.setAttribute('y',y-27);rect.setAttribute('width',width);rect.setAttribute('height',54);rect.setAttribute('rx',13);g.appendChild(rect);
- const text=document.createElementNS(ns,'text');text.setAttribute('x',x);text.setAttribute('y',y-2);text.setAttribute('text-anchor','middle');text.textContent=label;g.appendChild(text);
- const sub=document.createElementNS(ns,'text');sub.setAttribute('x',x);sub.setAttribute('y',y+17);sub.setAttribute('class','small');sub.setAttribute('text-anchor','middle');sub.textContent=desc;g.appendChild(sub);group.appendChild(g);
-});
-const list=document.querySelector('#druglist');
-let activeTab='anticoag',selected=null,focused=null,qIndex=0,answered=false;
-const tabs=Array.from(document.querySelectorAll('[data-tab]'));
-function renderList(){
- tabs.forEach(b=>{let on=b.dataset.tab===activeTab;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));});
- list.replaceChildren();
- drugs.filter(d=>d.tab===activeTab).forEach(drug=>{const b=document.createElement('button');b.type='button';b.className='drug'+(selected===drug.id?' selected':'');b.textContent=drug.name;b.setAttribute('aria-pressed',String(selected===drug.id));b.addEventListener('click',()=>{selected=drug.id;focused=null;render();});list.appendChild(b);});
+
+// ======================================
+// 2. BASE DE DATOS DE MEDICAMENTOS
+// ======================================
+
+const meds=[];
+
+function add(g,n,t,m,d,c,p,s){
+ meds.push({
+  g:g,
+  n:n,
+  t:t,
+  m:m,
+  d:d,
+  c:c,
+  p:p,
+  s:s
+ });
 }
-function showDetails(){
- const d=drugs.find(x=>x.id===selected);
- const info=focused && factorInfo[focused];
- const tag=document.querySelector('#detailtag'),title=document.querySelector('#detailtitle'),body=document.querySelector('#detailbody'),targets=document.querySelector('#detailtargets'),kind=document.querySelector('#detailtype'),note=document.querySelector('#detailnote');
- if(info){tag.textContent='FACTOR SELECCIONADO';title.textContent=info[0];body.textContent=info[1];targets.textContent=d&&d.targets.includes(focused)?'Diana del medicamento seleccionado':'Factor o elemento de la hemostasia';kind.textContent=d?`Medicamento activo: ${d.name}`:'Información básica';note.textContent=d&&d.targets.includes(focused)?'Este elemento está resaltado porque es una de las dianas farmacológicas seleccionadas.':'Toca otro factor o un fármaco para seguir explorando.';return;}
- if(!d){tag.textContent='GUÍA DE USO';title.textContent='Selecciona un fármaco';body.textContent='Verás sus dianas resaltadas en el esquema, el mecanismo de acción y una clave útil para explicarlo a los médicos.';targets.textContent='—';kind.textContent='—';note.textContent='Empieza por apixabán, heparina o warfarina para contrastar mecanismos directos, indirectos y síntesis de factores.';return;}
- tag.textContent=d.tag;title.textContent=d.name;body.textContent=d.body;targets.textContent=d.targets.map(t=>t==='PLASMINOGENO'?'Plasminógeno':t==='COX1'?'COX-1':t==='P2Y12'?'P2Y₁₂':`Factor ${t}`).join(' · ');kind.textContent=d.type;note.textContent=d.note;
-}
-function render(){renderList();const d=drugs.find(x=>x.id===selected);document.querySelectorAll('[data-node]').forEach(n=>{n.classList.toggle('target',!!d&&d.targets.includes(n.dataset.node));n.classList.toggle('focus',focused===n.dataset.node);});showDetails();}
-function focusFactor(node){if(!factorInfo[node])return;focused=node;render();if(innerWidth<=650){document.querySelector('.insight').scrollIntoView({behavior:'smooth',block:'nearest'});}}
-document.querySelectorAll('[data-node]').forEach(b=>{b.addEventListener('click',()=>focusFactor(b.dataset.node));b.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();focusFactor(b.dataset.node);}});});
-tabs.forEach(b=>b.addEventListener('click',()=>{activeTab=b.dataset.tab;selected=null;focused=null;render();}));
-document.querySelector('#reset').addEventListener('click',()=>{selected=null;focused=null;activeTab='anticoag';document.body.classList.remove('present');document.querySelector('#present').setAttribute('aria-pressed','false');document.querySelector('#present').textContent='▣ Modo exposición';render();});
-document.querySelector('#present').addEventListener('click',()=>{const isOn=document.body.classList.toggle('present');document.querySelector('#present').setAttribute('aria-pressed',String(isOn));document.querySelector('#present').textContent=isOn?'↘ Salir de exposición':'▣ Modo exposición';});
-const questions=[
- {q:'¿Qué factor inhiben directamente apixabán y rivaroxabán?',a:['Factor IIa','Factor Xa','Factor VII','Factor XIIIa'],correct:1,why:'Son inhibidores directos del factor Xa en la vía común.'},
- {q:'¿Cuál es la diana principal del dabigatrán?',a:['Trombina (IIa)','Factor VII','COX-1','Factor Xa'],correct:0,why:'Dabigatrán inhibe directamente trombina (factor IIa).'},
- {q:'¿Qué factores dependen de la vitamina K y son afectados por warfarina?',a:['I, V, VIII y XIII','XII, XI, VIII y V','II, VII, IX y X','Solo II y Xa'],correct:2,why:'Warfarina disminuye la producción de factores II, VII, IX y X funcionales, además de afectar proteínas C y S.'},
- {q:'¿Cuál de estos fármacos actúa sobre la hemostasia primaria plaquetaria?',a:['Dabigatrán','Aspirina','Apixabán','Fondaparinux'],correct:1,why:'Aspirina inhibe COX-1 en plaquetas y disminuye tromboxano A₂.'},
- {q:'¿Cuál es la función principal de la alteplasa?',a:['Inhibir de forma directa Xa','Bloquear P2Y₁₂','Inhibir la síntesis de II','Activar plasminógeno a plasmina'],correct:3,why:'La plasmina degrada la fibrina del coágulo.'},
- {q:'La heparina no fraccionada actúa fundamentalmente...',a:['Por potenciación de antitrombina','Por inhibición de VKORC1','Por bloqueo irreversible de COX-1','Por activación directa de plasmina'],correct:0,why:'Potencia antitrombina, acelerando la inactivación de Xa y IIa.'},
- {q:'¿Qué distingue a fondaparinux de apixabán?',a:['Fondaparinux actúa en IIa','Apixabán requiere antitrombina','Fondaparinux inhibe Xa mediante antitrombina','Fondaparinux es fibrinolítico'],correct:2,why:'Fondaparinux potencia la inhibición de Xa a través de antitrombina; apixabán lo inhibe directamente.'}
+
+// ======================================
+// ANTICOAGULANTES
+// ======================================
+
+add(
+"antico",
+"Heparina no fraccionada",
+["Xa","IIa"],
+"Potencia la antitrombina y acelera la inhibición de los factores Xa y IIa.",
+"TVP/TEP: esquema IV inicial orientativo de 80 UI/kg en bolo, seguido de 18 UI/kg/h, ajustado mediante TTPa o actividad anti-Xa.\n\nProfilaxis hospitalaria: 5000 UI SC cada 8–12 horas, según riesgo.",
+"Sangrado activo significativo; TIH inmunitaria actual o previa; hipersensibilidad. Precaución con anestesia neuraxial.",
+"ISSS 2026: heparina sódica 5000 UI/mL, vial de 5 mL. Confirmar concentración exacta antes de administrar.",
+"ISSS 2026; Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Enoxaparina",
+["Xa","IIa"],
+"Heparina de bajo peso molecular. Potencia la antitrombina e inhibe preferentemente el factor Xa.",
+"TVP/TEP: 1 mg/kg SC cada 12 horas; en determinados pacientes 1.5 mg/kg cada 24 horas.\n\nProfilaxis hospitalaria: 40 mg SC cada 24 horas.\n\nAjustar según función renal e indicación.",
+"Sangrado activo, TIH reciente o activa, hipersensibilidad. Precaución en disfunción renal y procedimientos neuraxiales.",
+"ISSS 2026: jeringas precargadas de 20 mg/0.2 mL, 40 mg/0.4 mL y 60 mg/0.6 mL.",
+"ISSS 2026; Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Dalteparina",
+["Xa","IIa"],
+"Heparina de bajo peso molecular con mayor actividad anti-Xa que anti-IIa.",
+"TEV asociado a cáncer: 200 UI/kg SC cada 24 horas el primer mes, máximo 18 000 UI/día. Posteriormente, alrededor de 150 UI/kg al día según peso y protocolo.",
+"Sangrado activo, TIH e hipersensibilidad. Precaución en insuficiencia renal.",
+"Referencia internacional: jeringas de 2500, 5000, 7500, 10 000 y 12 500 UI anti-Xa, entre otras. Disponibilidad ISSS no confirmada.",
+"Revisión de trombosis asociada a cáncer"
+);
+
+add(
+"antico",
+"Fondaparinux",
+["Xa"],
+"Pentasacárido sintético que potencia selectivamente la inhibición de Xa mediada por antitrombina.",
+"TVP/TEP: 5 mg SC diarios si peso menor de 50 kg; 7.5 mg si pesa entre 50 y 100 kg; 10 mg si pesa más de 100 kg.\n\nProfilaxis: 2.5 mg SC cada 24 horas cuando esté indicado.",
+"Sangrado activo, depuración de creatinina menor de 30 mL/min y restricciones de peso según indicación.",
+"Referencia internacional: jeringas de 2.5, 5, 7.5 y 10 mg.",
+"Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Warfarina",
+["VKORC1","II","VII","IX","X"],
+"Inhibe VKORC1, reduciendo la síntesis funcional de factores II, VII, IX y X y de las proteínas C y S.",
+"Inicio habitualmente individualizado, a menudo entre 2 y 5 mg VO al día.\n\nAjustar según INR.\n\nObjetivo habitual de INR: 2–3 en FA y TVP/TEP. Los objetivos para válvulas mecánicas dependen de la válvula y su posición.\n\nEn TEV agudo se requiere superposición inicial con anticoagulante parenteral.",
+"Embarazo, salvo circunstancias muy especializadas; sangrado activo significativo; hepatopatía con coagulopatía e hipersensibilidad.",
+"ISSS 2026: warfarina sódica 5 mg, tableta oral. Otras concentraciones dependen del mercado.",
+"ISSS 2026; Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Apixabán",
+["Xa"],
+"Inhibidor oral directo del factor Xa, independiente de antitrombina.",
+"Fibrilación auricular no valvular: 5 mg VO cada 12 horas.\n\nReducir a 2.5 mg cada 12 horas cuando se cumplen al menos dos: edad ≥80 años, peso ≤60 kg y creatinina ≥1.5 mg/dL.\n\nTVP/TEP: 10 mg cada 12 horas durante 7 días, luego 5 mg cada 12 horas.",
+"Sangrado activo, hepatopatía con coagulopatía e hipersensibilidad. No está indicado para válvulas mecánicas.",
+"Referencia internacional: tabletas de 2.5 mg y 5 mg. Disponibilidad ISSS no confirmada.",
+"Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Rivaroxabán",
+["Xa"],
+"Inhibidor oral directo del factor Xa.",
+"TVP/TEP: 15 mg VO cada 12 horas durante 21 días, luego 20 mg al día con alimento.\n\nFA no valvular: 20 mg una vez al día con alimento en pacientes elegibles; ajustar por función renal.",
+"Sangrado activo, hepatopatía con coagulopatía, interacciones importantes y disfunción renal según indicación.",
+"ISSS 2026: rivaroxabán 15 mg, comprimido recubierto. Otros mercados ofrecen 2.5, 10 y 20 mg.",
+"ISSS 2026; Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Dabigatrán",
+["IIa"],
+"Inhibidor oral directo y reversible de la trombina.",
+"FA no valvular: 150 mg VO cada 12 horas en pacientes elegibles.\n\nTVP/TEP: 150 mg cada 12 horas tras 5–10 días de anticoagulación parenteral.\n\nLa función renal determina restricciones y ajustes.",
+"Sangrado activo, válvulas mecánicas, hipersensibilidad y limitaciones renales.",
+"Referencia internacional: cápsulas de 75, 110 y 150 mg, según país.",
+"Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Edoxabán",
+["Xa"],
+"Inhibidor oral directo del factor Xa.",
+"TVP/TEP: 60 mg VO una vez al día después de al menos 5 días de anticoagulación parenteral, con reducción a 30 mg en circunstancias indicadas.\n\nFA: dosis según función renal, peso, interacciones y ficha técnica.",
+"Sangrado activo, hepatopatía con coagulopatía y restricciones renales específicas.",
+"Referencia internacional: tabletas de 15, 30 y 60 mg.",
+"Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Argatrobán",
+["IIa"],
+"Inhibidor parenteral directo de trombina, independiente de antitrombina.",
+"TIH: perfusión IV titulada mediante TTPa. Dosis inicial orientativa de 2 microgramos/kg/min en adultos estables, utilizando dosis menores en enfermedad crítica o disfunción hepática.",
+"Hemorragia mayor activa e hipersensibilidad. Precaución importante en hepatopatía.",
+"Concentrado para infusión IV. Concentración según fabricante.",
+"Mogielnicki 2026"
+);
+
+add(
+"antico",
+"Bivalirudina",
+["IIa"],
+"Inhibidor parenteral directo y reversible de la trombina.",
+"Intervención coronaria percutánea y situaciones seleccionadas de TIH: dosificación IV especializada según peso, función renal y protocolo.",
+"Hemorragia activa significativa e hipersensibilidad. Ajuste renal según situación.",
+"Referencia internacional: vial de 250 mg para reconstitución IV.",
+"Mogielnicki 2026"
+);
+
+// ======================================
+// ANTIAGREGANTES
+// SOLO LOS CUATRO ELEGIDOS
+// ======================================
+
+add(
+"antiag",
+"Ácido acetilsalicílico (AAS)",
+["COX1"],
+"Inhibe irreversiblemente la ciclooxigenasa-1 de la plaqueta, reduciendo la síntesis de tromboxano A2.",
+"SCA: dosis de carga oral masticada de 162–325 mg, seguida de 75–100 mg diarios.\n\nPrevención secundaria cardiovascular: 75–100 mg/día en pacientes seleccionados.",
+"Sangrado activo, alergia a salicilatos, enfermedad ulcerosa activa y otras situaciones de alto riesgo.",
+"ISSS 2026: ácido acetilsalicílico 80–100 mg, presentación sólida oral.",
+"Guía ACC/AHA 2025; ISSS 2026"
+);
+
+add(
+"antiag",
+"Clopidogrel",
+["P2Y12"],
+"Profármaco activado por CYP2C19. Bloquea de forma irreversible el receptor plaquetario P2Y12.",
+"SCA/intervención coronaria: carga de 300–600 mg según estrategia; mantenimiento de 75 mg VO al día.\n\nPrevención secundaria: 75 mg/día cuando corresponde.",
+"Hemorragia activa, hipersensibilidad y precaución por interacciones con inhibidores CYP2C19.",
+"ISSS 2026: clopidogrel 75 mg, sólido oral. Comprimidos de 300 mg se comercializan en otros mercados.",
+"Guía ACC/AHA 2025; ISSS 2026"
+);
+
+add(
+"antiag",
+"Prasugrel",
+["P2Y12"],
+"Profármaco que bloquea irreversiblemente P2Y12 y reduce la agregación plaquetaria.",
+"SCA con intervención coronaria en pacientes elegibles: carga 60 mg VO; mantenimiento habitual 10 mg/día.\n\nConsiderar 5 mg/día en pacientes seleccionados de bajo peso o edad avanzada.",
+"Antecedentes de ictus o AIT, hemorragia activa e hipersensibilidad. Precaución especial en mayores de 75 años.",
+"Referencia internacional: tabletas de 5 mg y 10 mg. Disponibilidad ISSS no confirmada.",
+"Guía ACC/AHA 2025"
+);
+
+add(
+"antiag",
+"Ticagrelor",
+["P2Y12"],
+"Inhibidor directo y reversible del receptor plaquetario P2Y12.",
+"SCA: carga de 180 mg VO seguida habitualmente de 90 mg cada 12 horas durante la fase inicial, según estrategia.",
+"Hemorragia activa, antecedente de hemorragia intracraneal, hepatopatía grave e interacciones importantes.",
+"ISSS 2026: ticagrelor 90 mg, tableta en listado de excepción. La tableta de 60 mg existe en otros mercados.",
+"Guía ACC/AHA 2025; ISSS 2026"
+);
+
+// ======================================
+// FIBRINOLÍTICOS
+// ======================================
+
+add(
+"fibro",
+"Alteplasa",
+["PLG","PLASMINA","FIBRINA"],
+"Activador tisular recombinante del plasminógeno. Favorece la formación de plasmina, que degrada fibrina.",
+"ICTUS ISQUÉMICO ELEGIBLE:\n0.9 mg/kg IV, máximo 90 mg. Administrar el 10% en bolo y el resto durante 60 minutos.\n\nIAM CON ELEVACIÓN DEL ST:\nEsquema acelerado de 90 minutos: 15 mg IV en bolo; luego 0.75 mg/kg (máximo 50 mg) durante 30 minutos; después 0.5 mg/kg (máximo 35 mg) durante 60 minutos. Máximo total 100 mg.\n\nTEP DE ALTO RIESGO:\nFrecuentemente 100 mg IV durante 2 horas según protocolo.",
+"Hemorragia activa significativa, hemorragia intracraneal y otras contraindicaciones mayores para fibrinólisis.",
+"ISSS 2026: alteplasa 50 mg, vial para reconstitución IV.",
+"Guías ACC/AHA 2025 y AHA/ASA 2026"
+);
+
+add(
+"fibro",
+"Tenecteplasa",
+["PLG","PLASMINA","FIBRINA"],
+"Variante de tPA con mayor especificidad relativa por fibrina y semivida más prolongada.",
+"ICTUS ISQUÉMICO ELEGIBLE:\n0.25 mg/kg IV en bolo único; máximo 25 mg.\n\nIAM CON ELEVACIÓN DEL ST — BOLO IV ÚNICO:\nMenos de 60 kg: 30 mg.\n60–69 kg: 35 mg.\n70–79 kg: 40 mg.\n80–89 kg: 45 mg.\n90 kg o más: 50 mg.\n\nEn pacientes de edad avanzada, verificar ajustes del protocolo. NO intercambiar la dosis de ictus con la de IAM.",
+"Hemorragia activa, patología intracraneal de alto riesgo y otras contraindicaciones para trombólisis.",
+"Referencia internacional: vial para reconstitución IV. No identificada en el LIM ISSS 2026 revisado.",
+"Guías ACC/AHA 2025 y AHA/ASA 2026"
+);
+
+add(
+"fibro",
+"Estreptoquinasa",
+["PLG","PLASMINA","FIBRINA"],
+"Forma un complejo activador del plasminógeno y produce fibrinólisis sistémica.",
+"IAM CON ELEVACIÓN DEL ST:\nEsquema clásico de 1 500 000 UI IV durante 60 minutos, cuando la fibrinólisis esté indicada.\n\nLa angioplastia primaria es preferente cuando puede realizarse oportunamente.",
+"Hemorragia activa, ictus hemorrágico, cirugía intracraneal reciente, hipersensibilidad o exposición previa relevante.",
+"ISSS 2026: estreptoquinasa 1 500 000 UI, frasco vial.",
+"ISSS 2026; guía ACC/AHA 2025"
+);
+
+// ======================================
+// HEMOSTÁTICOS Y REVERSORES
+// ======================================
+
+add(
+"hemo",
+"Ácido tranexámico",
+["PLG","FIBRINA"],
+"Antifibrinolítico que reduce la activación del plasminógeno y la degradación de fibrina. No forma nuevos coágulos.",
+"TRAUMA HEMORRÁGICO SELECCIONADO:\n1 g IV durante 10 minutos, seguido de 1 g IV durante 8 horas, iniciado dentro de las primeras 3 horas.\n\nHEMORRAGIA POSPARTO:\n1 g IV en 10 minutos; repetir 1 g si el sangrado persiste a los 30 minutos o recurre dentro de 24 horas.\n\nPAUTA ORAL GENERAL EN PALIATIVOS:\n1–1.5 g VO cada 8 horas.\n\nPAUTA IV DEL DOCUMENTO PALIATIVO:\n10–15 mg/kg IV cada 8 horas.\n\nSANGRADO PROSTÁTICO:\nEl documento menciona ATX oral, sin dosis prostática específica. La pauta general anterior NO equivale a una recomendación validada para próstata.\n\nRequiere ajuste renal. El documento señala reducir dosis si TFG menor de 50 mL/min.",
+"Enfermedad tromboembólica activa, hipersensibilidad y precaución en insuficiencia renal, convulsiones y hematuria por riesgo de obstrucción con coágulos. No recomendado rutinariamente en hemorragia digestiva aguda.",
+"ISSS 2026: tabletas de 650 mg y solución inyectable de 500 mg/5 mL.",
+"ISSS 2026; literatura paliativa; ensayo HALT-IT"
+);
+
+add(
+"hemo",
+"Fitomenadiona (vitamina K1)",
+["VKORC1","II","VII","IX","X"],
+"Permite restaurar la síntesis funcional de factores de coagulación dependientes de vitamina K.",
+"HEMORRAGIA MAYOR ASOCIADA A WARFARINA:\nHabitualmente 5–10 mg IV lenta junto con PCC de cuatro factores, según protocolo.\n\nSin hemorragia mayor: dosis individualizada por INR y riesgo.",
+"Hipersensibilidad y riesgo de reacciones graves con administración IV.",
+"ISSS 2026: fitomenadiona 10 mg/mL, ampolla de 1 mL, protegida de la luz.",
+"ISSS 2026; guías de reversión"
+);
+
+add(
+"hemo",
+"Desmopresina",
+["VWF","VIII"],
+"Promueve la liberación endotelial de factor von Willebrand y factor VIII.",
+"ENFERMEDAD DE VON WILLEBRAND TIPO 1 Y HEMOFILIA A LEVE:\n0.3 microgramos/kg IV en pacientes respondedores, siguiendo protocolo.\n\nDisfunción plaquetaria urémica: uso seleccionado.",
+"Hiponatremia, retención de líquidos, determinadas enfermedades cardiovasculares y precaución en enfermedad von Willebrand tipo 2B.",
+"ISSS 2026: desmopresina 120 microgramos sublingual. Esta formulación NO sustituye a una presentación hemostática IV.",
+"ISSS 2026; revisiones hemostáticas"
+);
+
+add(
+"hemo",
+"Concentrado protrombínico de 4 factores",
+["II","VII","IX","X"],
+"Repone rápidamente factores II, VII, IX y X.",
+"REVERSIÓN URGENTE DE WARFARINA CON SANGRADO GRAVE:\nEsquemas habituales de 25–50 UI/kg, calculados según INR, peso y producto.\n\nAdministrar vitamina K cuando corresponde.",
+"Riesgo tromboembólico, hipersensibilidad y contraindicaciones específicas del fabricante.",
+"Concentrado liofilizado para administración IV, expresado en unidades de factor IX. Disponibilidad ISSS no confirmada.",
+"Revisiones de agentes hemostáticos"
+);
+
+add(
+"hemo",
+"Concentrado de fibrinógeno",
+["FG","FIBRINA"],
+"Repone fibrinógeno para permitir la formación y estabilidad de fibrina.",
+"HEMORRAGIA MAYOR CON HIPOFIBRINOGENEMIA:\nDosis individualizada según niveles de fibrinógeno, peso y/o pruebas viscoelásticas.\n\nDosis iniciales de referencia: 2–4 g IV en adultos, según protocolo.",
+"Hipersensibilidad y riesgo de trombosis.",
+"Viales liofilizados, frecuentemente de 1 g según fabricante.",
+"Revisiones de agentes hemostáticos"
+);
+
+add(
+"hemo",
+"Protamina",
+["Xa","IIa"],
+"Se une a la heparina no fraccionada y neutraliza su efecto. La reversión de HBPM es parcial.",
+"REVERSIÓN DE HEPARINA NO FRACCIONADA:\nAproximadamente 1 mg por cada 100 UI de heparina administrada recientemente, ajustando por tiempo transcurrido y dosis máxima del protocolo.\n\nAdministrar IV lentamente y monitorizar.",
+"Hipersensibilidad, hipotensión, reacciones anafilactoides e hipertensión pulmonar. El exceso puede producir anticoagulación paradójica.",
+"ISSS 2026: sulfato de protamina 10 mg/mL, ampolla o vial de 5 mL.",
+"ISSS 2026; Mogielnicki 2026"
+);
+
+add(
+"hemo",
+"Idarucizumab",
+["IIa"],
+"Fragmento de anticuerpo que se une específicamente a dabigatrán y revierte su efecto.",
+"REVERSIÓN URGENTE DE DABIGATRÁN:\n5 g IV, administrados como dos dosis de 2.5 g según ficha técnica.",
+"Hipersensibilidad y riesgo trombótico tras la reversión.",
+"Referencia internacional: 2.5 g/50 mL; dos viales para la dosis completa. Disponibilidad ISSS no confirmada.",
+"Mogielnicki 2026"
+);
+
+add(
+"hemo",
+"Octreótido",
+["VASC"],
+"Análogo de somatostatina que reduce el flujo sanguíneo esplácnico y la presión portal. No actúa directamente sobre la cascada.",
+"HEMORRAGIA DIGESTIVA ALTA VARICEAL:\n50 microgramos IV en bolo, seguido de infusión de 25–50 microgramos/h durante 2–5 días.\n\nDebe asociarse al manejo etiológico, antibióticos cuando corresponda y evaluación endoscópica.\n\nNo es un tratamiento rutinario de la úlcera péptica no variceal.",
+"Hipersensibilidad. Precaución en bradicardia, trastornos glucémicos y litiasis biliar.",
+"ISSS 2026: octreotida 0.1 mg/mL (100 microgramos/mL), ampolla de 1 mL registrada como SC. Confirmar autorización de la formulación para uso IV.",
+"AASLD; ISSS 2026"
+);
+
+add(
+"hemo",
+"Apósitos de alginato",
+["LOCAL"],
+"Material absorbente que favorece el control de exudado y sangrado superficial de heridas.",
+"HERIDAS TUMORALES:\nAplicación local según tipo de apósito, exudado y sangrado. Retirar cuidadosamente para evitar trauma.",
+"No sustituyen el control de hemorragia mayor. Precaución si la lesión es seca o el apósito se adhiere.",
+"Apósitos de alginato, láminas o tiras, según fabricante y abastecimiento.",
+"Literatura de cuidados paliativos"
+);
+
+add(
+"hemo",
+"Sucralfato tópico / enjuague",
+["MUCOSA"],
+"Forma una barrera protectora sobre mucosas lesionadas; no activa factores plasmáticos.",
+"SANGRADO OROFARÍNGEO:\nDocumento paliativo: 2 g en 10 mL de suspensión cada 12 horas como enjuague.\n\nÚLCERAS MALIGNAS:\nPasta con 1 g de sucralfato y 5 mL de agua cada 12 horas, aplicada tópicamente en gasa.\n\nPreparaciones que requieren validación por Farmacia.",
+"Hipersensibilidad y precaución por aspiración o preparación no estandarizada.",
+"ISSS 2026: sucralfato 1 g, forma oral. El uso tópico requiere preparación y autorización local.",
+"Literatura paliativa; ISSS 2026"
+);
+
+add(
+"hemo",
+"Sucralfato rectal / enema",
+["MUCOSA"],
+"Forma una capa protectora sobre la mucosa rectal lesionada.",
+"SANGRADO RECTAL:\nDocumento paliativo: sucralfato 2 g vía rectal cada 12 horas, como pasta o enema.\n\nNo se especifica el volumen de preparación en el documento. Confirmar formulación antes del uso.",
+"Hipersensibilidad y precauciones relacionadas con la manipulación rectal y lesiones locales.",
+"ISSS 2026: sucralfato 1 g oral. No se identifica una presentación rectal comercial institucional; requiere preparación especializada.",
+"Literatura paliativa; ISSS 2026"
+);
+
+// ======================================
+// 3. MAPA INTERACTIVO
+// ======================================
+
+const LANES=[
+ ["HEMOSTASIA PRIMARIA",[
+  ["COX1","COX-1 / TXA2"],
+  ["P2Y12","P2Y12 / ADP"],
+  ["VWF","Factor von Willebrand"],
+  ["PLAQ","Plaquetas"]
+ ]],
+ ["VÍA INTRÍNSECA",[
+  ["XII","XII → XIIa"],
+  ["XI","XI → XIa"],
+  ["IX","IX → IXa"],
+  ["VIII","VIII → VIIIa"]
+ ]],
+ ["VÍA EXTRÍNSECA",[
+  ["TF","Factor tisular"],
+  ["VII","VII → VIIa"]
+ ]],
+ ["VÍA COMÚN",[
+  ["X","Factor X"],
+  ["Xa","Factor Xa"],
+  ["II","Protrombina II"],
+  ["IIa","Trombina IIa"],
+  ["FG","Fibrinógeno"],
+  ["FIBRINA","Fibrina"],
+  ["VKORC1","Ciclo vitamina K"]
+ ]],
+ ["FIBRINÓLISIS",[
+  ["PLG","Plasminógeno"],
+  ["PLASMINA","Plasmina"]
+ ]],
+ ["ACCIÓN LOCAL / EXTRACASCADA",[
+  ["VASC","Vasculatura esplácnica"],
+  ["MUCOSA","Protección de mucosa"],
+  ["LOCAL","Hemostasia tópica"]
+ ]]
 ];
-function renderQuiz(){answered=false;const item=questions[qIndex];document.querySelector('#question').textContent=item.q;document.querySelector('#feedback').textContent='Selecciona una respuesta para comprobarla.';const parent=document.querySelector('#answers');parent.replaceChildren();item.a.forEach((answer,index)=>{const b=document.createElement('button');b.className='choice';b.textContent=String.fromCharCode(65+index)+'. '+answer;b.addEventListener('click',()=>{if(answered)return;answered=true;parent.querySelectorAll('button').forEach((e,i)=>{e.disabled=true;if(i===item.correct)e.classList.add('correct');if(i===index&&index!==item.correct)e.classList.add('wrong');});document.querySelector('#feedback').textContent=(index===item.correct?'✓ Correcto. ':'✕ No es correcto. ')+item.why;});parent.appendChild(b);});}
-document.querySelector('#nextquestion').addEventListener('click',()=>{qIndex=(qIndex+1)%questions.length;renderQuiz();});
-render();renderQuiz();
-})();
+
+const FACTORS={
+ COX1:"COX-1 permite sintetizar tromboxano A2.",
+ P2Y12:"P2Y12 es un receptor de ADP que favorece agregación plaquetaria.",
+ VWF:"El factor von Willebrand interviene en adhesión plaquetaria y transporte de VIII.",
+ PLAQ:"Las plaquetas forman el tapón hemostático primario.",
+ XII:"XII es un factor de la vía de contacto en el modelo clásico.",
+ XI:"XIa contribuye a amplificar la coagulación.",
+ IX:"IXa junto con VIIIa participa en activación de X.",
+ VIII:"VIIIa funciona como cofactor de IXa.",
+ TF:"El factor tisular inicia la coagulación al interactuar con VIIa.",
+ VII:"VIIa unido a factor tisular activa la coagulación.",
+ X:"El factor X es precursor del Xa.",
+ Xa:"Xa junto a Va forma el complejo protrombinasa.",
+ II:"La protrombina es precursor de trombina.",
+ IIa:"La trombina convierte fibrinógeno en fibrina.",
+ FG:"El fibrinógeno es el precursor soluble de la fibrina.",
+ FIBRINA:"La fibrina forma la red del coágulo. XIIIa contribuye a estabilizarla.",
+ VKORC1:"Participa en el reciclaje de vitamina K.",
+ PLG:"El plasminógeno se convierte en plasmina.",
+ PLASMINA:"La plasmina degrada la fibrina del coágulo.",
+ VASC:"El octreótido reduce flujo esplácnico y presión portal.",
+ MUCOSA:"El sucralfato actúa como barrera protectora local.",
+ LOCAL:"Los apósitos actúan físicamente sobre la lesión."
+};
+
+// ======================================
+// 4. PATOLOGÍAS
+// ======================================
+
+const diseases=[
+ ["TVP / TEP",
+  "Apixabán o rivaroxabán en muchos pacientes; HBPM o heparina en situaciones seleccionadas.",
+  "Valorar embarazo, cáncer, función renal y estabilidad hemodinámica."],
+
+ ["Fibrilación auricular no valvular",
+  "Anticoagulantes orales directos en pacientes elegibles.",
+  "Individualizar por riesgo embólico y hemorrágico."],
+
+ ["Válvula cardíaca mecánica",
+  "Warfarina.",
+  "Los anticoagulantes orales directos no sustituyen warfarina."],
+
+ ["Trombocitopenia inducida por heparina",
+  "Suspender heparinas y considerar argatrobán u otro anticoagulante no heparínico.",
+  "Confirmar probabilidad clínica y pruebas específicas."],
+
+ ["Síndrome coronario agudo",
+  "AAS más inhibidor P2Y12; anticoagulación según estrategia.",
+  "Guía ACC/AHA 2025."],
+
+ ["Ictus isquémico agudo elegible",
+  "Alteplasa o tenecteplasa.",
+  "Seleccionar por neuroimagen, tiempo y contraindicaciones."],
+
+ ["IAM con elevación del ST",
+  "Angioplastia primaria preferente. Si no puede realizarse oportunamente, fibrinólisis en pacientes elegibles.",
+  "Las dosis de trombólisis para IAM difieren de las de ictus."],
+
+ ["TEP de alto riesgo",
+  "Anticoagulación y considerar reperfusión urgente.",
+  "Requiere evaluación hemodinámica especializada."],
+
+ ["Hemorragia grave asociada a warfarina",
+  "PCC de cuatro factores y vitamina K IV.",
+  "Además de control del foco hemorrágico."],
+
+ ["Hemorragia posparto",
+  "Ácido tranexámico temprano y tratamiento obstétrico de la causa.",
+  "No sustituye uterotónicos, reanimación ni control del origen."]
+];
+
+// ======================================
+// 5. SANGRADO EN PALIATIVOS
+// ======================================
+
+const palliative=[
+
+{
+ name:"Nariz / epistaxis",
+ options:"Nitrato de plata en barra o gasa con ácido tranexámico (ATX) 500 mg/5 mL durante 10 minutos.",
+ doses:"La tabla describe 500 mg/5 mL para aplicación local.",
+ caution:"Evaluar localización, cantidad de sangrado y tolerancia."
+},
+
+{
+ name:"Orofaringe",
+ options:"Enjuague con ATX 500 mg/5 mL, 10 mL cada 6 horas; el documento indica que se traga después. Sucralfato 2 g en 10 mL de suspensión cada 12 horas como enjuague. También describe adrenalina nebulizada en lesiones menos accesibles.",
+ doses:"Sucralfato: 2 g/10 mL cada 12 horas, como enjuague. ATX: preparación descrita en tabla.",
+ caution:"El documento anota una concentración de adrenalina nebulizada de 1% que debe verificarse y no debe aplicarse directamente como pauta clínica. La deglución de los enjuagues requiere valoración."
+},
+
+{
+ name:"Pulmón / hemoptisis",
+ options:"ATX nebulizado 500 mg/5 mL, 3–4 veces al día, o vía sistémica. Si es posible, broncoscopia, embolización de arteria bronquial o radioterapia paliativa.",
+ doses:"ATX nebulizado: 500 mg por administración, 3–4 veces al día, según pauta del documento. Uso según protocolo.",
+ caution:"La hemoptisis abundante requiere actuación urgente y protección de vía aérea."
+},
+
+{
+ name:"Digestivo alto",
+ options:"IBP, ATX oral/IV, octreótido o somatostatina. Endoscopia según objetivos de atención. Si falla, radioterapia hemostática o embolización.",
+ doses:"IBP EN ÚLCERA DE ALTO RIESGO TRAS HEMOSTASIA ENDOSCÓPICA:\nOmeprazol o esomeprazol 80 mg IV en bolo y 8 mg/h IV durante 72 horas. Las guías permiten alternativas intermitentes de dosis altas según contexto.\n\nOCTREÓTIDO EN SANGRADO VARICEAL:\n50 microgramos IV en bolo, luego 25–50 microgramos/h durante 2–5 días.\n\nATX ORAL:\nEl documento paliativo describe 1–1.5 g VO cada 8 horas como pauta sistémica general; NO es una dosis recomendada para hemorragia digestiva aguda.",
+ caution:"HALT-IT no demostró reducción de muerte por sangrado digestivo con ATX y observó aumento de tromboembolismo venoso y convulsiones. No usar de forma rutinaria. El octreótido no se indica de rutina para úlcera péptica no variceal."
+},
+
+{
+ name:"Digestivo bajo / rectal",
+ options:"ATX rectal 500 mg en 10 mL de agua cada 12 horas o sistémico. Sucralfato en pasta o enema, 2 g cada 12 horas por vía rectal. Si falla, radioterapia o embolización.",
+ doses:"Sucralfato: 2 g cada 12 horas vía rectal, según documento, sin especificación de volumen final del enema.\n\nATX rectal: 500 mg en 10 mL de agua cada 12 horas, pauta de la tabla paliativa.\n\nATX oral general: 1–1.5 g cada 8 horas; no constituye recomendación rutinaria para hemorragia digestiva aguda.",
+ caution:"Las preparaciones rectales descritas pueden estar fuera de ficha técnica y requieren validación especializada. No extrapolar el IBP ni octreótido a todo sangrado digestivo bajo."
+},
+
+{
+ name:"Vejiga / hematuria",
+ options:"Sonda Foley de tres vías con irrigación salina por tiempo limitado. ATX intravesical 100 mL al 5% cada 12 horas. ATX oral solamente con cautela. Considerar cistoscopia, embolización o radioterapia.",
+ doses:"La tabla paliativa describe ATX intravesical 100 mL al 5% cada 12 horas. Esta vía no debe adoptarse sin protocolo urológico específico.",
+ caution:"Riesgo de retención de coágulos y obstrucción urinaria. El ATX sistémico puede ser especialmente problemático en sangrado de tracto urinario superior."
+},
+
+{
+ name:"Vagina",
+ options:"El documento consigna una preparación tópica de 2 g en 10 mL.",
+ doses:"No se establece una pauta completa porque la tabla no identifica expresamente el principio activo de esa preparación.",
+ caution:"Confirmar el medicamento, técnica y concentración antes de elaborar una recomendación."
+},
+
+{
+ name:"Próstata",
+ options:"Sonda Foley con tracción leve y ATX oral. Si es posible, embolización o radioterapia.",
+ doses:"ATX ORAL:\nLa tabla prostática no especifica una dosis propia. La pauta SISTÉMICA GENERAL del mismo documento es 1–1.5 g VO cada 8 horas.\n\nNo debe considerarse una pauta validada específicamente para sangrado prostático. Requiere ajuste renal.",
+ caution:"Valorar con Urología el riesgo de retención de coágulos, obstrucción urinaria y extensión del sangrado al tracto superior. No utilizar ATX de forma automática."
+},
+
+{
+ name:"Úlceras malignas",
+ options:"Apósitos de alginato, gasa con ATX tópico o adrenalina 1:1000 durante 5–10 minutos, ATX oral para prevenir recurrencia y sucralfato en pasta. Si es posible, embolización o radioterapia.",
+ doses:"Sucralfato tópico: pasta de 1 g en 5 mL de agua cada 12 horas en gasa.\n\nATX oral general: 1–1.5 g VO cada 8 horas según fuente paliativa, con individualización.",
+ caution:"Precaución con adrenalina tópica, heridas friables, retiro traumático de apósitos y riesgo trombótico."
+}
+
+];
+
+// ======================================
+// 6. CRITERIOS DE TRANSFUSIÓN
+// ======================================
+
+const blood=[
+
+{
+ name:"Concentrado eritrocitario",
+ metric:"Hemoglobina",
+ headline:"Hb <7 g/dL",
+ rules:[
+  ["Adulto estable","Considerar transfusión si Hb menor de 7 g/dL."],
+  ["Cirugía cardíaca","Umbral restrictivo cercano a 7.5 g/dL, según situación."],
+  ["Cirugía ortopédica / enfermedad cardiovascular","Puede considerarse umbral de 8 g/dL."],
+  ["Síndrome coronario agudo","Puede ser razonable una estrategia más liberal, hasta Hb cercana a 10 g/dL en determinados pacientes, según guía 2025."],
+  ["Choque hemorrágico","Transfundir según estado hemodinámico y protocolo; no esperar Hb."]
+ ],
+ note:"Valorar síntomas, perfusión, sangrado activo, sobrecarga y respuesta tras cada unidad."
+},
+
+{
+ name:"Concentrado de plaquetas",
+ metric:"Recuento plaquetario",
+ headline:"<10 000/µL",
+ rules:[
+  ["Profilaxis","Menos de 10 000/µL en trombocitopenia hipoproliferativa seleccionada."],
+  ["Sangrado clínicamente significativo","Considerar transfusión con recuentos inferiores a 30 000/µL según gravedad."],
+  ["Sangrado mayor o procedimientos","Con frecuencia se busca un recuento ≥50 000/µL."],
+  ["SNC u ojos","Pueden requerirse objetivos cercanos a 100 000/µL."],
+  ["TIH / PTT","No transfundir rutinariamente; valorar excepciones específicas."]
+ ],
+ note:"Los umbrales dependen de la causa de trombocitopenia, sangrado y procedimiento."
+},
+
+{
+ name:"Plasma fresco congelado",
+ metric:"TP / INR / TTPa",
+ headline:">1.5 veces referencia",
+ rules:[
+  ["Coagulopatía con sangrado","Considerar plasma cuando TP o TTPa supera 1.5 veces el valor de referencia y hay sangrado clínicamente significativo."],
+  ["Procedimiento urgente","Valorar según riesgo y alteración real de factores."],
+  ["Déficit múltiple de factores","Considerar reposición cuando está indicada."],
+  ["Dosis orientativa","10–15 mL/kg, con reevaluación clínica y analítica."]
+ ],
+ note:"No usar únicamente para corregir un INR levemente elevado sin sangrado, ni como expansor de volumen."
+},
+
+{
+ name:"Crioprecipitado",
+ metric:"Fibrinógeno",
+ headline:"<150 mg/dL",
+ rules:[
+  ["Hemorragia significativa","Considerar reposición si fibrinógeno es inferior a 150 mg/dL."],
+  ["Hemorragia obstétrica","Puede perseguirse fibrinógeno ≥200 mg/dL según protocolo."],
+  ["Sangrado masivo","Utilizar fibrinógeno y pruebas viscoelásticas cuando estén disponibles."],
+  ["Dosis inicial","Frecuentemente 10 unidades en adulto, con ajuste según nivel y contenido del producto."]
+ ],
+ note:"La reposición debe guiarse por déficit de fibrinógeno y contexto hemorrágico, no únicamente por diagnóstico."
+}
+
+];
+
+// ======================================
+// 7. BIBLIOGRAFÍA
+// ======================================
+
+const references=[
+
+["ISSS. Listado Institucional de Medicamentos. Primera edición, 2026.",""],
+
+["Rao SV, et al. 2025 ACC/AHA Guideline for the Management of Acute Coronary Syndromes.",
+"https://doi.org/10.1016/j.jacc.2024.11.009"],
+
+["Mogielnicki A. Pharmacological Management of Thrombosis: Current State and Future Strategies. International Journal of Molecular Sciences. 2026.",
+"https://doi.org/10.3390/ijms27073151"],
+
+["Morgovan C, et al. An Overview of Anticoagulant Drugs Pharmacology. Pharmaceutics. 2026.",
+"https://doi.org/10.3390/pharmaceutics18020163"],
+
+["Jamali B, et al. Local and Systemic Hemostatic Agents. Cureus. 2024.",
+"https://doi.org/10.7759/cureus.72312"],
+
+["Sood R, et al. Management of bleeding in palliative care patients in the general internal medicine ward. Annals of Medicine and Surgery. 2020.",
+"https://doi.org/10.1016/j.amsu.2019.12.002"],
+
+["Laine L, et al. ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding. 2021.",
+"https://doi.org/10.14309/ajg.0000000000001245"],
+
+["ESGE. Nonvariceal Upper Gastrointestinal Hemorrhage. Guideline Update 2021.",
+"https://www.esge.com"],
+
+["AASLD. Practice Guidance on Portal Hypertension and Varices in Cirrhosis.",
+"https://www.aasld.org"],
+
+["HALT-IT Trial Collaborators. Tranexamic acid in acute gastrointestinal bleeding. Lancet. 2020.",
+"https://doi.org/10.1016/S0140-6736(20)30848-5"],
+
+["AABB. International Guidelines for Red Blood Cell Transfusion. 2023.",
+"https://www.aabb.org"],
+
+["NICE. Blood Transfusion. NG24.",
+"https://www.nice.org.uk/guidance/ng24"]
+
+];
+
+// ======================================
+// 8. FUNCIONES INTERACTIVAS
+// ======================================
+
+let group="antico";
+let selected=null;
+let tab="m";
+
+const $=id=>document.getElementById(id);
+
+function safe(text){
+ return String(text??"").replace(/[&<>"']/g,function(c){
+  return {
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#39;"
+  }[c];
+ });
+}
+
+function renderGroups(){
+ $("groups").innerHTML="";
+ GROUPS.forEach(([id,name])=>{
+  const button=document.createElement("button");
+  button.textContent=name;
+  button.style.setProperty("--color",COLORS[id]);
+  if(group===id){
+   button.classList.add("active");
+   button.style.setProperty("--selected",COLORS[id]);
+  }
+  button.onclick=()=>{
+   group=id;
+   selected=null;
+   tab="m";
+   renderGroups();
+   renderDrugs();
+   renderDetails();
+   highlight();
+  };
+  $("groups").appendChild(button);
+ });
+}
+
+function renderDrugs(){
+ $("druglist").innerHTML="";
+ const query=$("search").value.toLocaleLowerCase();
+
+ meds.forEach((m,i)=>{
+  if(m.g!==group)return;
+  if(!m.n.toLocaleLowerCase().includes(query))return;
+
+  const button=document.createElement("button");
+  button.textContent=m.n;
+
+  if(selected===i){
+   button.classList.add("active");
+   button.style.setProperty("--selected",COLORS[m.g]);
+  }
+
+  button.onclick=()=>{
+   selected=i;
+   tab="m";
+   renderDrugs();
+   renderDetails();
+   highlight();
+
+   if(window.innerWidth<850){
+    $("mapa").scrollIntoView({behavior:"smooth"});
+   }
+  };
+
+  $("druglist").appendChild(button);
+ });
+}
+
+function renderMap(){
+ $("diagram").innerHTML="";
+
+ LANES.forEach(([title,nodes],i)=>{
+  const lane=document.createElement("div");
+  lane.className="lane";
+
+  const heading=document.createElement("h3");
+  heading.textContent=title;
+  lane.appendChild(heading);
+
+  const grid=document.createElement("div");
+  grid.className="nodes";
+
+  nodes.forEach(([id,label])=>{
+   const b=document.createElement("button");
+   b.className="node";
+   b.dataset.target=id;
+   b.textContent=label;
+
+   b.onclick=()=>{
+    $("factorinfo").textContent=
+      label+"\n\n"+(FACTORS[id]||"Estructura relacionada con la hemostasia.")+
+      "\n\nMedicamentos relacionados: "+
+      (meds.filter(m=>m.t.includes(id)).map(m=>m.n).join(", ")||"No incluidos en esta selección.");
+   };
+
+   grid.appendChild(b);
+  });
+
+  lane.appendChild(grid);
+  $("diagram").appendChild(lane);
+
+  if(i<LANES.length-1){
+   const arrow=document.createElement("div");
+   arrow.className="arrow";
+   arrow.textContent="↓";
+   $("diagram").appendChild(arrow);
+  }
+ });
+}
+
+function highlight(){
+ const m=selected===null?null:meds[selected];
+ document.querySelectorAll(".node").forEach(node=>{
+  node.classList.toggle(
+   "hit",
+   !!m && m.t.includes(node.dataset.target)
+  );
+ });
+}
+
+function renderDetails(){
+ if(selected===null){
+  $("druggroup").textContent="GUÍA DE USO";
+  $("drugtitle").textContent="Selecciona un medicamento";
+  $("drugtarget").textContent="Su diana aparecerá resaltada.";
+  $("tabs").innerHTML="";
+  $("detail").textContent="Elige un medicamento para consultar su información.";
+  $("source").textContent="";
+  return;
+ }
+
+ const m=meds[selected];
+ const name=GROUPS.find(g=>g[0]===m.g)[1];
+
+ $("druggroup").textContent=name;
+ $("drugtitle").textContent=m.n;
+ $("drugtarget").textContent=
+  "Dianas / lugares de acción: "+m.t.join(" · ");
+
+ const tabs=[
+  ["m","Mecanismo"],
+  ["d","Dosis"],
+  ["c","Contraindicaciones"],
+  ["p","Presentación"]
+ ];
+
+ $("tabs").innerHTML="";
+
+ tabs.forEach(([id,title])=>{
+  const button=document.createElement("button");
+  button.textContent=title;
+
+  if(tab===id){
+   button.className="active";
+   button.style.setProperty("--selected",COLORS[m.g]);
+  }
+
+  button.onclick=()=>{
+   tab=id;
+   renderDetails();
+  };
+
+  $("tabs").appendChild(button);
+ });
+
+ $("detail").textContent=m[tab];
+ $("source").textContent="Referencias: "+m.s;
+}
+
+function renderDiseases(){
+ $("diseases").innerHTML="";
+
+ diseases.forEach(([name,treatment,note])=>{
+  const card=document.createElement("article");
+  card.className="card";
+
+  const h=document.createElement("h3");
+  h.textContent=name;
+
+  const p=document.createElement("p");
+  p.textContent=treatment;
+
+  const small=document.createElement("small");
+  small.textContent=note;
+
+  card.append(h,p,small);
+  $("diseases").appendChild(card);
+ });
+}
+
+function renderPalliative(){
+ $("bleedlist").innerHTML="";
+
+ palliative.forEach(item=>{
+  const details=document.createElement("details");
+
+  const summary=document.createElement("summary");
+  summary.textContent=item.name;
+
+  const options=document.createElement("p");
+  options.textContent=item.options;
+
+  const note=document.createElement("div");
+  note.className="note";
+  note.textContent="Dosis / información complementaria:\n"+item.doses;
+  note.style.whiteSpace="pre-line";
+
+  const caution=document.createElement("div");
+  caution.className="warning";
+  caution.textContent="Precaución: "+item.caution;
+
+  details.append(summary,options,note,caution);
+  $("bleedlist").appendChild(details);
+ });
+}
+
+function renderBlood(){
+ $("bloodlist").innerHTML="";
+
+ blood.forEach(item=>{
+  const card=document.createElement("article");
+  card.className="card";
+
+  const title=document.createElement("h3");
+  title.textContent=item.name;
+  card.appendChild(title);
+
+  const measure=document.createElement("div");
+  measure.className="measure";
+
+  const metric=document.createElement("small");
+  metric.textContent=item.metric;
+
+  const headline=document.createElement("strong");
+  headline.textContent=item.headline;
+
+  measure.append(metric,headline);
+  card.appendChild(measure);
+
+  item.rules.forEach(([label,text])=>{
+   const rule=document.createElement("div");
+   rule.className="rule";
+
+   const strong=document.createElement("b");
+   strong.textContent=label+": ";
+
+   const content=document.createElement("span");
+   content.textContent=text;
+
+   rule.append(strong,content);
+   card.appendChild(rule);
+  });
+
+  const caution=document.createElement("p");
+  caution.className="muted";
+  caution.textContent=item.note;
+  card.appendChild(caution);
+
+  $("bloodlist").appendChild(card);
+ });
+}
+
+function renderReferences(){
+ $("references").innerHTML="";
+
+ references.forEach(([title,url],index)=>{
+  const p=document.createElement("div");
+  p.className="ref";
+
+  const number=document.createElement("strong");
+  number.textContent=(index+1)+". ";
+
+  p.appendChild(number);
+
+  if(url){
+   const link=document.createElement("a");
+   link.href=url;
+   link.target="_blank";
+   link.rel="noopener noreferrer";
+   link.textContent=title;
+   p.appendChild(link);
+  }else{
+   const span=document.createElement("span");
+   span.textContent=title;
+   p.appendChild(span);
+  }
+
+  $("references").appendChild(p);
+ });
+}
+
+// ======================================
+// 9. CONTROLES GENERALES
+// ======================================
+
+$("search").addEventListener("input",renderDrugs);
+
+$("reset").onclick=()=>{
+ group="antico";
+ selected=null;
+ tab="m";
+ $("search").value="";
+
+ renderGroups();
+ renderDrugs();
+ renderDetails();
+ highlight();
+
+ $("factorinfo").textContent=
+ "Selecciona una estructura de la cascada.";
+
+ window.scrollTo({top:0,behavior:"smooth"});
+};
+
+$("present").onclick=()=>{
+ const active=document.body.classList.toggle("exposition");
+
+ document.body.style.fontSize=active?"18px":"15px";
+
+ $("present").textContent=active
+  ?"Salir de exposición"
+  :"▣ Modo exposición";
+};
+
+// ======================================
+// 10. INICIO DE LA APLICACIÓN
+// ======================================
+
+renderGroups();
+renderDrugs();
+renderMap();
+renderDetails();
+renderDiseases();
+renderPalliative();
+renderBlood();
+renderReferences();
+highlight();
+
 </script>
 </body>
-<footer style="text-align:center; padding:25px 15px;
-color:#9ebbd1; background:#101c2e;
-font-family:Arial,sans-serif; font-size:13px;">
-  <p>CASCADA DE COAGULACIÓN INTERACTIVA</p>
-  <p style="color:white; font-size:15px;">
-    Elaborado por <strong>Dra. Milena Godoy</strong>
-  </p>
-  <p style="color:#56d5c9;">
-    Herramienta educativa para profesionales de la salud
-  </p>
-</footer>
 </html>

@@ -2636,6 +2636,190 @@ highlight();
   highlight();
 
 })();
+
+/////
+
+/* COMPACTAR VERTICALMENTE EL MAPA HORIZONTAL */
+
+(function compactarMapaSinRecortes() {
+
+  const renderOriginal = renderMap;
+
+  // 0.62 significa que el mapa tendrá
+  // aproximadamente el 62% de su altura anterior.
+  const factorVertical = 0.62;
+
+  const svgNS = "http://www.w3.org/2000/svg";
+
+  function compactar() {
+
+    const svg = document.querySelector(
+      "#diagram svg.atlas-map"
+    );
+
+    if (!svg || svg.dataset.compactado === "si") {
+      return;
+    }
+
+    svg.dataset.compactado = "si";
+
+    const contenido = document.createElementNS(
+      svgNS, "g"
+    );
+
+    contenido.setAttribute(
+      "transform",
+      "scale(1 " + factorVertical + ")"
+    );
+
+    // Compactar la distribución vertical
+    // sin eliminar factores ni conexiones.
+
+    Array.from(svg.children).forEach(elemento => {
+
+      if (elemento.tagName.toLowerCase() !== "defs") {
+        contenido.appendChild(elemento);
+      }
+
+    });
+
+    svg.appendChild(contenido);
+
+    svg.setAttribute(
+      "viewBox",
+      "0 0 1200 490"
+    );
+
+    svg.setAttribute(
+      "preserveAspectRatio",
+      "xMidYMid meet"
+    );
+
+    // Mantener las letras y los recuadros legibles.
+
+    const inverso = 1 / factorVertical;
+
+    svg.querySelectorAll(".factor").forEach(factor => {
+
+      const ajuste = document.createElementNS(
+        svgNS, "g"
+      );
+
+      ajuste.setAttribute(
+        "transform",
+        "scale(1 " + inverso + ")"
+      );
+
+      while (factor.firstChild) {
+        ajuste.appendChild(factor.firstChild);
+      }
+
+      factor.appendChild(ajuste);
+
+    });
+
+    // Mantener visibles los títulos de las vías.
+
+    svg.querySelectorAll(".lane-label")
+      .forEach(etiqueta => {
+
+        const y = Number(
+          etiqueta.getAttribute("y")
+        );
+
+        const ajuste = document.createElementNS(
+          svgNS, "g"
+        );
+
+        ajuste.setAttribute(
+          "transform",
+          "translate(0 " + y + ") " +
+          "scale(1 " + inverso + ") " +
+          "translate(0 " + (-y) + ")"
+        );
+
+        etiqueta.parentNode.insertBefore(
+          ajuste, etiqueta
+        );
+
+        ajuste.appendChild(etiqueta);
+
+      });
+
+  }
+
+  // Aplicar el ajuste cada vez que se dibuje el mapa.
+
+  renderMap = function() {
+    renderOriginal();
+    compactar();
+  };
+
+  const css = document.createElement("style");
+
+  css.textContent = `
+
+    @media (min-width: 901px) {
+
+      /* Conservar 70% mapa y 30% ficha */
+
+      .workspace {
+        grid-template-columns:
+          minmax(0, 7fr) minmax(0, 3fr) !important;
+      }
+
+      main {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      /* Reducir espacios alrededor del diagrama */
+
+      #mapa > .panel:first-child {
+        padding: 13px !important;
+      }
+
+      #mapa > .panel:first-child > p {
+        font-size: 12px;
+        margin: 5px 0 !important;
+      }
+
+      #diagram svg.atlas-map {
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+      }
+
+      #diagram .atlas-legend {
+        margin: 1px 0 5px !important;
+      }
+
+      #diagram .atlas-extras {
+        margin-top: 4px !important;
+        padding-top: 5px !important;
+      }
+
+      /* Compactar cuadro explicativo inferior */
+
+      #factorinfo {
+        min-height: 0 !important;
+        max-height: 65px;
+        overflow: auto;
+        padding: 8px;
+        font-size: 12px;
+      }
+
+    }
+
+  `;
+
+  document.head.appendChild(css);
+
+  renderMap();
+  highlight();
+
+})();
+
 </script>
 
 </body>
